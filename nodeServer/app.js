@@ -33,6 +33,10 @@ app.get('/', routes.index);
 
 app.get('/users', user.list);
 
+function hash(fileName) {
+    console.log("will generate hash for: " + fileName);
+}
+
 app.post('/api/file', function(req, res) {
 	console.log(JSON.stringify(req.files));
 	//var serverPath = '/images/' + req.files.userPhoto.name;
@@ -41,6 +45,8 @@ app.post('/api/file', function(req, res) {
  	var fs = require('fs');
  	console.log(fs.createReadStream);
  	var is = fs.createReadStream(req.files.upload_file.path);
+ 	var newFilePath = newFileFolder + req.files.upload_file.originalFilename;
+ 	console.log(hash(newFilePath));
 	var os = fs.createWriteStream(newFileFolder + req.files.upload_file.originalFilename);
 	is.pipe(os);
 	is.on('end',function() {
@@ -48,7 +54,7 @@ app.post('/api/file', function(req, res) {
 	});
 	
 	res.send({
-		path: 'Success, file moved'
+		path: 'File conversion is starting....'
 	});
  
  	/* this will usually work, but since we in my dev machine I have to copy in different partitions
@@ -65,6 +71,43 @@ app.post('/api/file', function(req, res) {
 			}
     );
 	*/
+	
+	//POST request starts here
+	console.log("will call conversion script...");
+ 	
+ 	var querystring = require('querystring');
+ 	
+ 	var data = querystring.stringify({fileName: "test"});
+ 	
+ 	var options = {
+	    host: 'localhost',
+	    port: 3000,
+	    path: '/test',
+	    method: 'POST',
+	    headers: {
+	        'Content-Type': 'application/x-www-form-urlencoded',
+	        'Content-Length': Buffer.byteLength(data)
+		    }
+	};
+	
+	//this waits for file conversion, upon response triggers callback
+	var request2 = http.request(options, function(response2) {
+	    response2.setEncoding('utf8');
+	    response2.on('data', function (chunk) {
+	        console.log("body: " + chunk); //chunk is the new hash
+	        console.log("CALLBACK from conversion has finished");
+	    });
+	});
+	
+	request2.write(data);
+	request2.end();
+	
+	
+});
+
+app.post('/test', function(req, res) {
+	console.log("response is now working: " + req.body.fileName);
+	res.send("fileName will be written here");
 });
 
 http.createServer(app).listen(app.get('port'), function(){
