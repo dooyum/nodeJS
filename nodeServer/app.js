@@ -13,7 +13,8 @@ var path = require('path');
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', 3001);
+//app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -40,7 +41,7 @@ function hash(fileName) {
 app.post('/api/file', function(req, res) {
 	console.log(JSON.stringify(req.files));
 	//var serverPath = '/images/' + req.files.userPhoto.name;
-	var newFileFolder = path.resolve(__dirname) + "/audio_files/";
+	var newFileFolder = path.resolve(__dirname) + "/../input/";
  
  	var fs = require('fs');
  	console.log(fs.createReadStream);
@@ -77,12 +78,12 @@ app.post('/api/file', function(req, res) {
  	
  	var querystring = require('querystring');
  	
- 	var data = querystring.stringify({fileName: "test"});
+ 	var data = querystring.stringify({fileName: req.files.upload_file.originalFilename});
  	
  	var options = {
 	    host: 'localhost',
 	    port: 3000,
-	    path: '/test',
+	    path: '/convertFile',
 	    method: 'POST',
 	    headers: {
 	        'Content-Type': 'application/x-www-form-urlencoded',

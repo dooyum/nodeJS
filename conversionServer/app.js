@@ -8,7 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var EmployeeProvider = require('./employeeprovider').EmployeeProvider;
+//var EmployeeProvider = require('./employeeprovider').EmployeeProvider;
 
 var app = express();
 
@@ -29,7 +29,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var employeeProvider= new EmployeeProvider('localhost', 27017);
+//var employeeProvider= new EmployeeProvider('localhost', 27017);
 
 app.get('/', function(req, res) {
 	employeeProvider.findAll(function(error, emps) {
@@ -57,6 +57,20 @@ app.post('/employee/new', function(req, res) {
 });
 
 app.get('/users', user.list);
+
+/*
+  POST: Insert a new element 
+var xmlObject = "<task><name>Nueva Nota via XML</name><notes>Done</notes></task>";
+
+$.ajax({
+	url: "http://localhost:3000/tasks.xml",
+	dataType: "xml",
+	type: "POST",
+	processData: false,
+	contentType: "text/xml",
+	data: xmlObject
+});
+ */
 
 app.post('/convertFile', function(req, res) {
 
