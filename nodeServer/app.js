@@ -12,6 +12,7 @@ var path = require('path');
 
 var app = express();
 
+//~=== EXPRESS CONFIGURATION OPTIONS
 // all environments
 app.set('port', 3001);
 //app.set('port', process.env.PORT || 3000);
@@ -19,7 +20,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.bodyParser());
+//app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
@@ -29,10 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+//~=== END EXPRESS CONFIGURATION OPTIONS
 
 app.get('/', routes.index);
-
-app.get('/users', user.list);
+app.post('/streamUpload', routes.streamUpload);
+//app.get('/users', user.list);
 
 function hash(fileName) {
     console.log("will generate hash for: " + fileName);
