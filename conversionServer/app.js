@@ -8,7 +8,6 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-//var EmployeeProvider = require('./employeeprovider').EmployeeProvider;
 
 var app = express();
 
@@ -28,35 +27,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
-//var employeeProvider= new EmployeeProvider('localhost', 27017);
-
-app.get('/', function(req, res) {
-	employeeProvider.findAll(function(error, emps) {
-		res.render('index', {
-			title:'Employees',
-			employees:emps
-		});
-	});
-});
-
-app.get('/employee/new', function(req, res) {
-	res.render('employee_new', {
-		title: 'New Employee'
-	});
-});
-
-//save new employee
-app.post('/employee/new', function(req, res) {
-	employeeProvider.save({
-		title: req.param('title'),
-		name: req.param('name')
-	}, function(error, docs) {
-		res.redirect('/')
-	});
-});
-
-app.get('/users', user.list);
 
 /*
   POST: Insert a new element 
