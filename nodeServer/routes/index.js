@@ -1,6 +1,6 @@
 
 //var uploadHelper = require('./uploadHelper');
-var uploadHelper = require('./uploadHelper');
+var uploadHelper = require('./formidableUploadHelper');
 
 /*
  * GET home page.

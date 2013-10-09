@@ -11,30 +11,47 @@ var formidable = require('formidable'),
     util = require('util'),
     sys = require('sys');
 
+var fileStream = null;
 /**
  * Stream upload using multi part
  */
 function streamUpload(req, res) {
-	console.log("beginning upload with formidable");
+	console.log("stream upload method");
 	var form = new formidable.IncomingForm();
 	
 	//2 ways to obtain filename:
 	//A) Obtain it directyl from request (Hardcode input field name)
 	//B) Use events provided by Formidable module
-	console.log(req);
+	//console.log(req);
 	//form.uploadDir = process.cwd();
 	
-	//part.filename
-	form.on('file', function(name, file) {
+	//THIS METHOD IS NOT BEING TRIGGERED!!!
+	form.on('fileBegin', function(name, file) {
 		console.log("file upload has begun");
-		console.log(file);
+		//console.log(file);
 	});
 	
-	//Everytime a "chunk (node.js buffer)" is uploaded, this will be triggered
+	form.on('file', function(name, file) {
+		console.log("a file has been detected");
+	});
+	
+	
+	//Everytime a "chunk (node.js buffer)" is uploaded, this will be triggered, it does the writing
 	form.onPart = function(part) {
 	  part.addListener('data', function(chunk) {
+	  	//If stream has not been created yet, create it
+	  	if(fileStream == null){
+	  		var filePath = path.resolve(__dirname) + "/../../input/";
+	  		var fileName = part.filename
+	    	var writeFilePath = filePath + fileName;
+	    	fileStream = fs.createWriteStream(filePath + fileName);
+	    	fileStream.addListener("error", function(err) {
+	        	console.log("Got error while writing to file '" + filePath + "': ", err);
+	    	});
+	  	}
 	    //This version should be much faster, formidable library parses quicker
-	    //console.log("writing chunk, uploaded: " + form.bytesReceived + " expected: " + form.bytesExpected);
+	    console.log("writing chunk, uploaded: " + form.bytesReceived + " expected: " + form.bytesExpected);
+	    fileStream.write(chunk, "binary");
 	  });
 	};
 	
@@ -49,6 +66,14 @@ function streamUpload(req, res) {
     	res.write('received upload:\n\n');
     	res.end(sys.inspect({fields: fields, files: files}));
     });
+    
+    form.on('end', function() {
+    	fileStream.addListener("drain", function() {
+           fileStream.end();
+        });
+    	console.log("Upload has finished");
+	});
+    
     return;
 }
 
