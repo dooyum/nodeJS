@@ -1,4 +1,6 @@
 
+//https://github.com/felixge/node-formidable
+//http://everythingnode.blogspot.com/p/file-upload-using-nodejs-and-html-5-ui.html
 var multipart = require("../node_modules/multipart/lib/multipart.js");
 var fs = require("fs");
 var fileName;

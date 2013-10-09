@@ -9,6 +9,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var sys = require('sys');
 
 var app = express();
 
@@ -35,6 +36,23 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.post('/streamUpload', routes.streamUpload);
 //app.get('/users', user.list);
+
+var formidable = require('formidable');
+
+app.post('/test', function(req, res) {
+	/*
+	var form = new formidable.IncomingForm();
+	form.parse(req, function(fields, files) {
+    	res.writeHead(200, {'content-type': 'text/plain'});
+    	res.write('received upload:\n\n');
+    	res.end(sys.inspect({fields: req, files: files}));
+    });
+    */
+	//res.send("fileName will be written here");
+	res.writeHead(200, {'content-type': 'text/plain'});
+    	res.write('received upload:\n\n');
+    	res.end(sys.inspect(req));
+});
 
 function hash(fileName) {
     console.log("will generate hash for: " + fileName);
@@ -106,11 +124,6 @@ app.post('/api/file', function(req, res) {
 	request2.end();
 	
 	
-});
-
-app.post('/test', function(req, res) {
-	console.log("response is now working: " + req.body.fileName);
-	res.send("fileName will be written here");
 });
 
 http.createServer(app).listen(app.get('port'), function(){
