@@ -8,7 +8,7 @@ case "$file_ext" in
   "mp3" | "ogg") #TODO(dooyum)add supported audio extensions
       ffmpeg -i "../input/$input" "../output/$name.wav"
   ;;
-  "mkv" | "flv") #TODO(dooyum)add supported video extensions
+  "bbm" | "flv") #TODO(dooyum)add supported video extensions
       ffmpeg -i "../input/$input" "../output/$name.mp4"
   ;;
   "wav")
