@@ -5,6 +5,7 @@ var multipart = require("../node_modules/multipart/lib/multipart.js");
 var fs = require("fs");
 var fileName;
 var path = require('path');
+var request = require('request');
 
 var formidable = require('formidable'),
     http = require('http'),
@@ -35,23 +36,55 @@ function streamUpload(req, res) {
 		console.log("a file has been detected");
 	});
 	
-	
+	var test = false;
 	//Everytime a "chunk (node.js buffer)" is uploaded, this will be triggered, it does the writing
 	form.onPart = function(part) {
 	  part.addListener('data', function(chunk) {
 	  	//If stream has not been created yet, create it
 	  	if(fileStream == null){
 	  		var filePath = path.resolve(__dirname) + "/../../input/";
-	  		var fileName = part.filename
+	  		var fileName = part.filename;
 	    	var writeFilePath = filePath + fileName;
 	    	fileStream = fs.createWriteStream(filePath + fileName);
 	    	fileStream.addListener("error", function(err) {
 	        	console.log("Got error while writing to file '" + filePath + "': ", err);
 	    	});
+	    	
+	    	/*
+			request.post({
+			  url: 'http://localhost:3000/convertFile',
+			  headers: {
+			    'Content-Type': 'application/json'
+			  },
+			  body: JSON.stringify({
+			    fileName: fileName
+			  })
+			}, function(error, response, body){
+			  console.log(body);
+			});
+			*/
 	  	}
+	  	
+	  	//Hack 
+	  	if(form.bytesReceived > form.bytesExpected / 2 && !test){
+	  		test = true;
+	  		request.post({
+			  url: 'http://localhost:3000/convertFile',
+			  headers: {
+			    'Content-Type': 'application/json'
+			  },
+			  body: JSON.stringify({
+			    fileName: part.filename
+			  })
+			}, function(error, response, body){
+			  console.log(body);
+			});
+	  	}
+	  	
 	    //This version should be much faster, formidable library parses quicker
-	    console.log("writing chunk, uploaded: " + form.bytesReceived + " expected: " + form.bytesExpected);
+	    console.log("writing chunk, received: " + form.bytesReceived + " expected: " + form.bytesExpected);
 	    fileStream.write(chunk, "binary");
+	    //res.write("writing chunk, uploaded: " + form.bytesReceived + " expected: " + form.bytesExpected + '\n\n');
 	  });
 	};
 	
@@ -62,9 +95,12 @@ function streamUpload(req, res) {
 	
 	//response
     form.parse(req, function(fields, files) {
+    	res.render('success');
+    	/*
     	res.writeHead(200, {'content-type': 'text/plain'});
     	res.write('received upload:\n\n');
     	res.end(sys.inspect({fields: fields, files: files}));
+    	*/
     });
     
     form.on('end', function() {
@@ -72,6 +108,7 @@ function streamUpload(req, res) {
            fileStream.end();
         });
     	console.log("Upload has finished");
+    	
 	});
     
     return;

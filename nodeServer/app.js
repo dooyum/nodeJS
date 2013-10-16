@@ -10,6 +10,7 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var sys = require('sys');
+var fs = require('fs');
 
 var app = express();
 
@@ -39,19 +40,33 @@ app.post('/streamUpload', routes.streamUpload);
 
 var formidable = require('formidable');
 
-app.post('/test', function(req, res) {
-	/*
-	var form = new formidable.IncomingForm();
-	form.parse(req, function(fields, files) {
-    	res.writeHead(200, {'content-type': 'text/plain'});
-    	res.write('received upload:\n\n');
-    	res.end(sys.inspect({fields: req, files: files}));
-    });
-    */
-	//res.send("fileName will be written here");
-	res.writeHead(200, {'content-type': 'text/plain'});
-    	res.write('received upload:\n\n');
-    	res.end(sys.inspect(req));
+app.get('/staticFile', function(req, res){
+	fs.readFile('../output/nyan_cat.wav', function(error, content) {
+		if (error) {
+			res.writeHead(500);
+			res.end();
+		}
+		else {
+			res.writeHead(200, { 'Content-Type': 'audio/wav' });
+			res.end(content, 'utf-8');
+		}
+	});
+});
+
+app.get('/test', function(req, res) {
+	res.render('success');
+	
+	//testing MongoDB
+	var MongoClient = require('mongodb').MongoClient;
+
+	// Connect to the db
+	MongoClient.connect("mongodb://localhost:27017/exampleDb", function(err, db) {
+	  if(!err) 
+	    console.log("We are connected");
+	});
+	
+	
+	//end testing MongoDB
 });
 
 function hash(fileName) {

@@ -17,3 +17,7 @@ exports.doUpload = function(req,res){
 exports.streamUpload = function(req,res){
 	uploadHelper.streamUpload(req, res);
 }
+
+exports.success = function(req, res){
+	res.render('success', { title: 'Success'});
+}
