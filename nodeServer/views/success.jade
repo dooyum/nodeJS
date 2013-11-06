@@ -2,9 +2,9 @@ extends layout
 
 block content
   h1= "File upload was succesful"
-  audio( src="staticFile"  loop="loop" controls="" preload="none")
+  audio( src="serveFile/"+fileRoute   loop="loop" controls="" preload="none")
   br
-  video( src="staticFile"  loop="loop" controls="" preload="none")
+  //- video( src="staticFile"  loop="loop" controls="" preload="none")
 
     
 //- Reference for what video files work on html5 http://diveintohtml5.info/video.html#what-works

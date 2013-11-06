@@ -36,7 +36,24 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.post('/streamUpload', routes.streamUpload);
-//app.get('/users', user.list);
+app.get('/serveFile/:fileName', routes.serveFile);
+
+app.get('/file/:fileRoute', function(req, res){ 
+	//res.sendfile('../output/' + req.params.fileRoute);
+	console.log("sending file");
+	console.log(req.params.fileRoute);
+	fs.readFile('../input/' + req.params.fileRoute , function(error, content) {
+		if (error) {
+			res.writeHead(500);
+			res.end();
+		}
+		else {
+			//determine content type
+			res.writeHead(200, { 'Content-Type': 'audio/wav' }); //content type should be dynamic
+			res.end(content, 'utf-8');
+		}
+	});
+});
 
 var formidable = require('formidable');
 
@@ -53,19 +70,51 @@ app.get('/staticFile', function(req, res){
 	});
 });
 
+
 app.get('/test', function(req, res) {
 	res.render('success');
 	
 	//testing MongoDB
 	var MongoClient = require('mongodb').MongoClient;
+	var Grid = require('mongodb').Grid;
 
 	// Connect to the db
-	MongoClient.connect("mongodb://localhost:27017/exampleDb", function(err, db) {
-	  if(!err) 
-	    console.log("We are connected");
+	MongoClient.connect("mongodb://localhost:27017/local", function(err, db) {
+		if(!err) 
+			console.log("We are connected");
+			
+		//Using GridFS for FileStorage
+		/*
+		var grid = new Grid(db, 'fs');
+		var buffer = new Buffer("Hello world");
+		grid.put(buffer, {metadata:{category:'text'}, content_type: 'text'}, function(err, fileInfo) {
+			grid.get(fileInfo._id, function(err, data) {
+		    console.log("Retrieved data: " + data.toString());
+		 });
+		});	
+		*/
+		
+		//Simple MongoDb CR
+		var collection = db.createCollection('sample', {w:1}, function(err, collection) { 
+			if(err){
+				console.log("there has been an error creating the collection. ");
+			}
+			var doc1 = {'hello':'doc1'};
+			var doc2 = {'hello':'doc2'};
+			var lotsOfDocs = [{'hello':'doc3'}, {'hello':'doc4'}];
+			
+			//Insert a new document
+			collection.insert(doc2, {w:1}, function(err, result) {
+				
+				collection.find().toArray(function(err, items) {}); //this query will fetch all the document in the collection and return them as an array of items. BAD Performance
+			    collection.findOne({'hello':'doc1'}, function(err, item) {
+			    	console.log(item);
+			    }); //special supported function to retrieve just one specific document bypassing the need for a cursor object.
+				
+			});
+		});
+		
 	});
-	
-	
 	//end testing MongoDB
 });
 
