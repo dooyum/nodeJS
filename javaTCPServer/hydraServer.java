@@ -24,7 +24,7 @@ class hydraServer
             System.out.println("DATA: " + dataFromClient[1]);
             System.out.println("Data Left: " + inFromClient.available());
          }
-        outToClient.writeBytes("This message is a translation from hydra");
+        //outToClient.writeBytes("This message is a translation from hydra");
       }
    }
 }
