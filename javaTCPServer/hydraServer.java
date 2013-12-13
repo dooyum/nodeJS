@@ -16,15 +16,13 @@ class hydraServer
          Socket connectionSocket = welcomeSocket.accept();
          DataInputStream inFromClient = new DataInputStream(connectionSocket.getInputStream());
          DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-         byte[] dataFromClient = new byte[1028];
-         int dataLeft = 1;
-         while(dataLeft != 0){
-            System.out.println("Reading: " + inFromClient.read(dataFromClient));
-            dataLeft = inFromClient.available();
-            System.out.println("DATA: " + dataFromClient[1]);
-            System.out.println("Data Left: " + inFromClient.available());
+         byte[] dataFromClient = new byte[20];
+         while(inFromClient.read(dataFromClient) > -1){
+            System.out.println("DATA: " + dataFromClient[0]);
+            outToClient.writeBytes("This message is a translation from hydra");
          }
-        //outToClient.writeBytes("This message is a translation from hydra");
+         System.out.println("Done Reading!!!");
+
       }
    }
 }

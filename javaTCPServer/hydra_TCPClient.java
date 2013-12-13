@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
+//TODO(dooyum) put read from source, write to hydra, read from hydra all on different threads
 class hydra_TCPClient
 {
    public static void main(String args[]) throws Exception
@@ -13,17 +13,10 @@ class hydra_TCPClient
       String hydraAddress = args[0];
       Integer hydraPort = Integer.parseInt(args[1]);
 
-      //ServerSocket welcomeSocket = new ServerSocket(6789);
-
       //HYDRA Connection
       Socket hydraSocket = new Socket(hydraAddress, hydraPort);
-      //Socket hydraSocket = new Socket("localhost", 10530);
-      //run this to send raw audio from ffmpeg to conversion server ... ffmpeg -i input.wav -f s16le -acodec pcm_s16le tcp://localhost:6789
-      // or ffmpeg -i http://amber.streamguys.com:5530 -f s16le -acodec pcm_s16le tcp://localhost:6789
+      //run this to send raw audio from ffmpeg to conversion server ... ffmpeg -i input.wav -f s16le -acodec pcm_s16le - | java hydra_TCPClient <hydra server IP> <hydra server port>
 
-      
-     //Socket connectionSocket = welcomeSocket.accept();
-     //DataInputStream inFromClient = new DataInputStream(connectionSocket.getInputStream());
      DataInputStream inFromClient = new DataInputStream(System.in);
 
      DataOutputStream outToHydra = new DataOutputStream(hydraSocket.getOutputStream());
@@ -31,7 +24,6 @@ class hydra_TCPClient
 
      List<byte[]> outputQueue = Collections.synchronizedList(new LinkedList<byte[]>());
      byte[] dataFromClient = new byte[16];
-     //Set dataLeft greater than zero so that it goes into the loop
      boolean incomingDataAvailable = true;
      boolean transcriptAvailable = false;
      int dataLeft;
@@ -49,15 +41,12 @@ class hydra_TCPClient
         combinedBytes = bytesToShort(dataFromClient);
         System.out.println("DATA: " + Integer.toHexString(combinedBytes[0] & 0xffff) + " " + Integer.toHexString(combinedBytes[1] & 0xffff) + " " + Integer.toHexString(combinedBytes[2] & 0xffff) + " " + Integer.toHexString(combinedBytes[3] & 0xffff) + " " + Integer.toHexString(combinedBytes[4] & 0xffff) + " " + Integer.toHexString(combinedBytes[5] & 0xffff) + " " + Integer.toHexString(combinedBytes[6] & 0xffff) + " " + Integer.toHexString(combinedBytes[7] & 0xffff));
         System.out.println("Data Left: " + dataLeft);
-        //write to HYDRA server
-        //outToHydra.write(kaldiFormat(dataFromClient));
      }
 
-     //output to hydra loop
+     //write to hydra
      while(!outputQueue.isEmpty() || incomingDataAvailable){
         //if queue is empty but data is still being read, skip sending output to hydra server
       if(!outputQueue.isEmpty()){
-        //write to HYDRA server
         outToHydra.write(outputQueue.remove(0));
         outToHydra.flush();
       }
@@ -65,20 +54,20 @@ class hydra_TCPClient
 
      String dataFromHydra;
 
-     //input from hydra loop
-     /*while((dataFromHydra = inFromHydra.readLine()) != null){
+     //input from hydra
+     while((dataFromHydra = inFromHydra.readLine()) != null){
       System.out.println("FROM HYDRA: " + dataFromHydra);
       transcriptAvailable = true;
      }
      transcriptAvailable = false;
-     */
+
 
      System.out.println("---------------END OF TRANSCRIPTION----------------");
 
      //TODO(dooyum) indicate when stream to and from hydra ends in order to close connection
-     if(outputQueue.isEmpty() && !incomingDataAvailable && !transcriptAvailable){
+     /*if(outputQueue.isEmpty() && !incomingDataAvailable && !transcriptAvailable){
       hydraSocket.close();      
-     }
+     }*/
    }
 
    public static short[] bytesToShort(byte[] b){
