@@ -1,0 +1,14 @@
+div.overlay
+div.playlist_edit_popup.popup.border_box.rounded_corners
+  form#save_playlist_name.save_playlist_name
+    div.popup_section
+      div.heading EDIT PLAYLIST
+      div.content
+        input.border_box.rounded_corners(name="new_name", type="text", placeholder="Playlist Name", value="{{playlist.title}}")
+        input(type="hidden", name="playlist_id", value="{{playlist.id}}")
+    div.divider
+    div.popup_section
+      div.button.neutral.save_button.border_box.rounded_corners.close_popup.btn_cancel Cancel
+        button.button.positive.submit_button.border_box.rounded_corners.btn_save(type="submit") Save
+      div.clear
+    div.arrow.top

@@ -1,0 +1,120 @@
+/////////////////////////////////////////////////////// COLORS
+color_main = #47b1e2
+color_text_light = #959595
+
+// this is a recursive function
+// it calculates the leading for a targeted line-height
+// if target_leading is less then one normal line for that fontSize
+// it'll try to add an extra half line via base_leading
+_calcLeading(target_leading, fontSize)
+  result = target_leading/fontSize
+  if result < 1
+    result = _calcLeading(target_leading + (base_leading/2), fontSize)
+  else
+    return result
+
+setHeading(fontSize)
+  font-size: (fontSize)em
+  line-height: _calcLeading(base_leading, fontSize)
+
+calWidth(n)
+  n * 8.3333%
+
+
+/////////////////////////////////////////////////////// TYPEFACE
+font_body = 'Helvetica Neue', Arial, sans-serif
+font_heading = Helvetica, Arial, sans-serif
+
+@font-face
+  font-family: 'an-regular'
+  src: url('assets/fonts/AvenirNext-Regular.otf') format('opentype')
+  font-weight:normal
+  font-style:normal
+
+@font-face
+  font-family: 'an-semibold'
+  src: url('assets/fonts/AvenirNext-DemiBold.otf') format('opentype')
+  font-weight:normal
+  font-style:normal
+
+@font-face
+  font-family: 'an-bold'
+  src: url('assets/fonts/AvenirNext-Bold.otf') format('opentype')
+  font-weight:normal
+  font-style:normal
+
+@font-face
+  font-family: 'an-medium'
+  src: url('assets/fonts/AvenirNext-Medium.otf') format('opentype')
+  font-weight:normal
+  font-style:normal
+
+/////////////////////////////////////////////////////// GRID
+// grid settings
+base_font_size_px = 16px
+numCol            = 1..12
+colGutter         = 1.5%
+width_main        = (1060/base_font_size_px)em
+
+.clearfix
+  &:before,
+  &:after
+    content: " "
+    display: table
+
+  &:after
+    clear: both
+
+.kw_container
+  @extend .clearfix
+  position: relative
+  margin: 0 auto
+  max-width: width_main
+  // width: 90% !important
+  width: 1005px
+
+.kw_row
+  @extend .clearfix
+  margin-left: - colGutter
+  margin-right: - colGutter
+
+is_a_col()
+  float: left
+  box-sizing: border-box
+  position: relative
+  padding-left: colGutter
+  padding-right: colGutter
+  min-height: 1px
+
+.kw_col
+  is_a_col()
+  &.centered
+    float: none
+    margin-left: auto
+    margin-right: auto
+
+for num in numCol
+  // make col
+  .kw_col_{num}
+    width: calWidth(num)
+
+  // make col offset
+  .kw_offset_{num}
+    margin-left: calWidth(num)
+
+/////////////////////////////////////////////////////// Responsive Grid
+@media only screen and (max-width: 769px)
+  // make normal column become full width
+  .kw_col
+    float: none
+    width: 100% !important
+
+  // make mobile grid
+  for num in numCol
+    .kw_col_m_{num}
+      is_a_col()
+      width: calWidth(num) !important
+
+    // make all offset column full column on mobile
+    .kw_offset_{num}
+      margin-left: 0

@@ -1,0 +1,14 @@
+article.search_portal_detail
+    a.sp_back(href="#") Search Results
+    #video_detail.sp_hold_player
+aside.search_portal_nav
+    {{#if search_string}}
+    h2.search_detail_header Results for <b>{{search_string}}</b>
+    {{else}}
+    h2.search_detail_header Recent videos
+    {{/if}}
+    #results.search_results_detail
+.kw_pagination(style='display: none;')
+#kw_infscr_loading
+#kw_remaining
+a#kw_next_page(href='#')

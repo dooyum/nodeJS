@@ -1,0 +1,27 @@
+{
+  "name": "koemei-widget",
+  "title": "Koemei Widget",
+  "description": "Koemei widget for indexing and captioning your videos",
+  "version": "3.2.7",
+  "homepage": "https://www.github.com/koemei/widget",
+  "author": {
+    "name": "Koemei",
+    "email": "info@koemei.com",
+    "url": "https://www.koemei.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/koemei/widget"
+  },
+  "bugs": "",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://www.github.com/koemei/widget/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "*"
+  },
+  "keywords": []
+}

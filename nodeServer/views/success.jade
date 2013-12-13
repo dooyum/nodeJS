@@ -2,9 +2,35 @@ extends layout
 
 block content
   h1= "File upload was succesful"
-  audio( src="serveFile/"+fileRoute   loop="loop" controls="" preload="none")
-  br
-  //- video( src="staticFile"  loop="loop" controls="" preload="none")
 
-    
+  div(id="upload_display" class="container")
+    div(class="row")
+      div(class="col-md-6")
+        video( src="serveFile/"+fileRoute   loop="loop" controls="" preload="none" type=""+fileType)
+      div(class="col-md-6")
+        div(id="transcript_display" data-file=""+fileRoute ) 
+          h2 Sample Transcript
+  a( href="serveFile/"+fileRoute )"Download File"
+  br
+  a( href="getTranscript/"+fileRoute )"Download Transcript"
+
+
+  script(type="text/javascript", src="/javascripts/transcript.js")  
+  
+//-  div( id="content_player" )
+//-    video(class="video-js vjs-default-skin" width="640" height="264")
+//-      source(src="serveFile/"+fileRoute)
+
+  
+//-  div( id="player" )
+//-  script(type="text/javascript", src="/javascripts/test-koemei.js")
+  
+  audio( src="serveFile/"+fileRoute   loop="loop" controls="" preload="none" onclick="getTranscript()")
+//-  br 
+//-  video( src="serveVideo/"+fileRoute  loop="loop" controls="" preload="none" type="video/ogg")
+   //- track( src="serveSubtitles/vsshort-en.srt" kind="subtitle" srclang="en-US" label="English")
+//-  br 
+
+  
+
 //- Reference for what video files work on html5 http://diveintohtml5.info/video.html#what-works

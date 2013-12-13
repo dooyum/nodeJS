@@ -1,0 +1,13 @@
+div.heatmap_notes(style="left:{{left_space}}px; width:{{bar_width}}px")
+    {{#each note_groups}}
+    div(class="heatmap_element_{{@key}} h_e", style="left:{{heatmapMargin @key ../granularity}}px")
+        div
+            span
+                b {{this.length}}
+                |  comment at {{secsToString @key}}
+            {{#each this}}
+            p
+                strong {{displayName attributes.author}} -
+                {{{attributes.content}}}
+            {{/each}}
+    {{/each}}

@@ -1,0 +1,47 @@
+div(class="kw_bar_options")
+    div(class="text_semibold login_button rounded_corners") Login or Sign Up
+    ul(class="list logged_in_toolbar", style="display:none;")
+        li
+            div
+                a(href="#", class="playlist_button border_box rounded_corners")
+                    span(class="icon playlist_button_icon")
+        li
+            div
+                a(href="#", class="share_button border_box rounded_corners")
+                    span(class="icon share_button_icon")
+        //li
+        //    div
+        //        a(href="#", class="like_button border_box rounded_corners")
+        //            span(class="icon like_button_icon kw_icon_like_active")
+        //           span(class="like_button_count text_semibold")
+        //                0
+        li
+            div
+                a(href="#", class="profile_button border_box rounded_corners")
+                    span(class="icon profile_button_icon kw_icon_profile")
+div(class="bar_sections")
+    ul(class="kw_toolbar")
+        {{#if features.transcript}}
+        li
+            div
+                a(href="#", data-target="transcript", data-tooltip-text="Transcript", class="transcript_button border_box rounded_corners active tooltip_invoker")
+                    span(class="icon transcript_button_icon")
+        {{/if}}
+        {{#if features.notes}}
+        li
+            div
+                a(href="#", data-target="notes", data-tooltip-text="Notes",  class="notes_button border_box rounded_corners tooltip_invoker")
+                    span(class="icon notes_button_icon")
+        {{/if}}
+        {{#if features.videos}}
+        li
+            div
+                a(href="#", data-target="videos", data-tooltip-text="Videos", class="videos_button border_box rounded_corners tooltip_invoker")
+                    span(class="icon videos_button_icon")
+        {{/if}}
+        {{#if features.binders}}
+        li
+            div
+                a(href="#", data-target="binders", data-tooltip-text="Snippets", class="binders_button border_box rounded_corners tooltip_invoker")
+                    span(class="icon binders_button_icon")
+        {{/if}}

@@ -1,0 +1,23 @@
+.section.binder_section.border_box(id="{{cid}}")
+    .section_top
+        .binder_view_top
+          ul.binder_view_source
+            li
+              a.binder_list_button.text_medium.border_box.rounded_corners.active(href='#') Binders
+              span.playlist_option_divider.text_medium  >
+              span.text_medium
+          .binder_view_options.binder_options
+            ul.options
+              //
+                li
+                    a.new_snippet_button.border_box.rounded_corners(href='#') New Snippet
+              li
+                a.binder_edit_button.border_box.rounded_corners(href='#') Edit
+      .section_body.binder_list.border_box.rounded_corners
+        .section_type_binder_view.section_type
+          ul#snippet-list
+            //
+               snippets
+    .snippet_create_popup.popup.border_box.rounded_corners(style='display: none;')
+    .binder_edit_popup.popup.border_box.rounded_corners(style='display: none;')
+    .snippet_delete_popup.popup.border_box.rounded_corners(style='display: none;')

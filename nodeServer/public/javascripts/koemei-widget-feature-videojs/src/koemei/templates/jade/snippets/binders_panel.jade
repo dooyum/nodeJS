@@ -1,0 +1,34 @@
+.section.binder_section.border_box
+    .section_top
+        .binder_list_top
+          .binder_options
+            ul.neutral_options.options
+              li
+                a.new_binder_button.border_box.rounded_corners(href='#') New Binder
+              li
+                a.new_snippet_button.border_box.rounded_corners(href='#') New Snippet
+            .binder_search_wrap
+              a.binder_search_button.kw_icon_search.border_box(href='#')
+              input.binder_search.border_box(type='text', placeholder='Search Binders')
+        .binder_view_top(style='display: none;')
+          ul.binder_view_source
+            li
+              a.binder_list_button.text_medium.border_box.rounded_corners.active(href='#') Binders
+              span.playlist_option_divider.text_medium  >
+              span.text_medium Favourite Quotes
+          .binder_view_options.binder_options
+            ul.options
+              li
+                a.new_snippet_button.border_box.rounded_corners(href='#') New Snippet
+              li
+                a.binder_edit_button.border_box.rounded_corners(href='#') Edit
+      .section_body.binder_list.border_box.rounded_corners
+        | \
+        .section_type_binders.section_type
+          ul#binder-list
+            //
+               binders
+        | \
+    .popup.binder_share_popup.border_box.rounded_corners(style='display: none;')
+    .binder_popup.popup.border_box.rounded_corners(style='display: none;')
+    .binder_delete_popup.popup.border_box.rounded_corners(style='display: none;')

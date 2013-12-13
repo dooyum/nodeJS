@@ -1,0 +1,16 @@
+h2.search_portal_header Please enter your search keywords
+form#kw_search_form
+    .kw_sp_search_wrap
+        button.kw_sp_search_button.kw_icon_search.border_box(type="submit") &nbsp
+        input#search_string.kw_sp_search.border_box(type='text', autocomplete='off', value='{{search_string}}', name='search_string')
+        input#page(type='hidden', value='1')
+ul.kw_sort_mode(data-sort='default')
+    li.kw_sp_sort_date
+        a(href='#') Sort by Date
+    li.kw_sp_sort_name
+        a(href='#') Sort by Name
+#results.search_results_list
+.kw_pagination(style='display: none;')
+#kw_infscr_loading
+#kw_remaining
+a#kw_next_page(href='#')

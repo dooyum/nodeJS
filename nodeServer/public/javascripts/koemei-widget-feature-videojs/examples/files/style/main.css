@@ -1,0 +1,177 @@
+/*variables*/
+/*reset*/
+.koemei_widget div,
+.koemei_widget ul,
+.koemei_widget ol,
+.koemei_widget li,
+.koemei_widget h1,
+.koemei_widget h2,
+.koemei_widget h3,
+.koemei_widget pre,
+.koemei_widget form,
+.koemei_widget fieldset,
+.koemei_widget legend,
+.koemei_widget input,
+.koemei_widget textarea,
+.koemei_widget p,
+.koemei_widget blockquote,
+.koemei_widget th,
+.koemei_widget td {
+  margin: 0;
+  padding: 0;
+}
+.koemei_widget table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.koemei_widget fieldset,
+.koemei_widget img {
+  border: 0;
+}
+.koemei_widget address,
+.koemei_widget caption,
+.koemei_widget cite,
+.koemei_widget code,
+.koemei_widget dfn,
+.koemei_widget em,
+.koemei_widget strong,
+.koemei_widget th,
+.koemei_widget var {
+  font-style: normal;
+  font-weight: normal;
+}
+.koemei_widget li {
+  list-style: none;
+}
+.koemei_widget caption,
+.koemei_widget th {
+  text-align: left;
+}
+.koemei_widget h1,
+.koemei_widget h2,
+.koemei_widget h3,
+.koemei_widget h4,
+.koemei_widget h5,
+.koemei_widget h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+.koemei_widget q:before,
+.koemei_widget q:after {
+  content: '';
+}
+.koemei_widget abbr,
+.koemei_widget acronym {
+  border: 0;
+  font-variant: normal;
+}
+.koemei_widget sup,
+.koemei_widget sub {
+  line-height: 0px;
+  vertical-align: text-top;
+}
+.koemei_widget sub {
+  vertical-align: text-bottom;
+}
+.koemei_widget input,
+.koemei_widget textarea,
+.koemei_widget select {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+.koemei_widget section,
+.koemei_widget article,
+.koemei_widget aside,
+.koemei_widget footer,
+.koemei_widget header,
+.koemei_widget nav,
+.koemei_widget hgroup {
+  display: block;
+}
+.koemei_widget a {
+  outline: none;
+}
+/*fonts*/
+@font-face {
+  font-family: 'an-regular';
+  src: url('assets/fonts/AvenirNext-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'an-semibold';
+  src: url('assets/fonts/AvenirNext-DemiBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'an-bold';
+  src: url('assets/fonts/AvenirNext-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'an-medium';
+  src: url('assets/fonts/AvenirNext-Medium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+/*GENERAL WIDGET*/
+.koemei_widget {
+  width: 500px;
+  font: 16px/1.2 'an-regular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.koemei_widget .border_box {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+.koemei_widget .rounded_corners {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+.koemei_widget .facebook_button_bg {
+  background-color: #4860a6;
+}
+.koemei_widget .twitter_button_bg {
+  background-color: #47b1e2;
+}
+.koemei_widget .google_button_bg {
+  background-color: #e95021;
+}
+.koemei_widget .email_button_bg {
+  background-color: #bbbbbb;
+}
+.koemei_widget .koemei_button_bg {
+  background-color: #66839a;
+}
+.koemei_widget .text_regular {
+  font-family: 'an-regular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.koemei_widget .text_medium {
+  font-family: 'an-medium', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.koemei_widget .text_semibold {
+  font-family: 'an-semibold', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.koemei_widget .text_bold {
+  font-family: 'an-bold', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.koemei_widget .widget_player {
+  position: relative;
+  width: 100%;
+  height: 324px;
+}
+.koemei_widget .koemei_shaded_overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: #000000;
+  opacity: .8;
+  filter: alpha(opacity=80);
+}

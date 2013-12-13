@@ -1,0 +1,39 @@
+
+.kw_user_portal
+    .kw_cta 
+        .kw_container
+            h1 Transform your videos into vibrant classrooms.
+            p
+                | With the click of a button, your lectures become interactive learning hubs accessible by just your students or even the whole world.
+            //- form.js_kw_cta_form.kw_cta_form
+            //-     input(type="text", placeholder="my email is&hellip;")
+
+    .kw_container
+        .kw_widget_school
+        .kw_widget_info
+            .kw_widget_author
+                {{#if media_item.title}}    
+                h1.kw_widget_title {{title}}
+                {{/if}}
+                .kw_widget_authorpict
+
+        .kw_row
+            .kw_widget_container.js_kw_widget_container.kw_col_8
+
+        //-     .kw_widget_activity.js_kw_widget_activity.kw_col.kw_col_4
+        //-         ul
+        //-                 | widget features here
+        //-             li
+        //-                 | widget features here
+        //-             li
+        //-                 | widget features here
+
+    //- .kw_container
+    //-     .kw_widget_related.js_kw_widget_related
+    //-         h1 A few related videos on the Koemei network
+    //-         .kw_row
+    //-             ul.kw_widget_related_videos
+    //-                 each i in [1,2,3,4,5,6,7,8]
+    //-                     li.kw_col.kw_col_3.kw_widget_related_video
+    //-                         //- display related video here, 4 or 8 videos
+    //-                         img(src="http://placehold.it/320x240")

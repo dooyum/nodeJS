@@ -1,0 +1,21 @@
+.entry.border_box.rounded_corners
+    .entry_preview
+        .preview(style='background-image: url();')
+          .button_wrap
+            span.preview_play_button
+          .duration_wrap
+            span.preview_video_duration.text_semibold {{timestamp}}
+      .entry_inner
+        .snippet "{{content}}"
+        .source_video
+          | From
+          span.video_name.text_medium {{video_title}}
+      .entry_options
+        //
+            .entry_option_wrap
+                span.entry_option.binder_share_button
+            .entry_option_wrap
+                span.entry_option.binder_edit_button
+
+        .entry_option_wrap
+          span.entry_option.snippet_delete_button

@@ -1,0 +1,28 @@
+.videos_section.section.border_box
+    .section_top
+        .video_options_wrap
+              ul.video_options.section_top_options
+                  li
+                    a.all_videos_button.text_medium.border_box.rounded_corners.active.show_all_vid(href="#") All Videos
+                  li
+                    a.connections_button.text_medium.border_box.rounded_corners.show_all_vid(href="#") Connections
+                  //li
+                  //  a.related_button.text_medium.border_box.rounded_corners.show_all_vid(href="#") Related
+                  {{#if playlists}}
+                  li
+                    a.video_playlists_button.text_medium.border_box.rounded_corners(href="#") Playlists
+                  {{/if}}
+              // Breadcrumbs
+              ul.playlist_options.section_top_options(style="display:none;")
+                  li
+                    a.video_playlists_button.text_medium.border_box.rounded_corners.active(href="#") Playlists
+                    span.playlist_option_divider.text_medium &nbsp;&gt;&nbsp;
+                    span.text_medium.kw_playlist_name
+        div.playlist_edit_top_wrap(style="display:none;")
+            a.playlist_edit_top_button.border_box.rounded_corners(href="#", data-type="edit_playlist_name", style="display: none") Edit
+        div.videos_search_wrap
+            form(id="video_search")
+                span.videos_search_results(style="display:none") XX matches
+                button.videos_search_button.kw_icon_search.border_box(type="submit") &nbsp;
+                input.videos_search.border_box(type="text", name="search_string", placeholder="Search")
+    .section_body.videos_list.border_box.rounded_corners(style="height:{{height}}px")

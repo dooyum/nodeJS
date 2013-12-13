@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="win">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+    <!-- css -->
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" href="../src/koemei/style/video-js.css">
+
+    <!-- js libraries -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="../src/koemei/js/config.js"></script>
+    <script type="text/javascript" src="../dist/koemei-widget.js"></script>
+
+</head>
+
+<body style="margin:100px">
+    <script type="text/javascript">
+        /**
+         * This script tag allows development configs to be specified with a ?env= query parameter.
+         * For example, visit /widget.html?env=localhost to specify the localhost config.
+         * You can completely omit this in production.
+         */
+        function getParameterByName(name) {
+            var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+            return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+        }
+        var env = getParameterByName('env');
+        if (!env)
+            env = 'prod';
+    </script>
+
+    <script type="text/javascript">
+        new KoemeiWidget({
+          media_uuid: 'ae53d5b7-b221-4fb1-88a3-a37d7f6503cc',
+          type: 'user_portal',
+          debug: true,
+          // Development only: these values will be populated if a ?config= param was given.
+          // If no config was given, these values will be undefined and the default values (production) will be used.
+          static_cdn_path: config[env].static_cdn_path,
+          usermedia_cdn_path: config[env].usermedia_cdn_path,
+          koemei_css_path: "../"+config[env].koemei_css_path,
+          koemei_host: config[env].koemei_host,
+          width: 659
+          ,video_width: 659
+          ,widget_height: 400
+        });
+    </script>
+</body>
+</html>

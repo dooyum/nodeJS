@@ -1,0 +1,27 @@
+div(class="kw_segment entry rounded_corners {{readonly_class}}", id="seg_div_{{segment.start}}")
+    {{#if display_speakers}}
+    div(class="speaker border_box")
+        span(class="icon")
+    {{else}}
+    div(class="speaker border_box")
+    {{/if}}
+    div(class="timestamp text_semibold", id="st_{{segment.start}}")
+        strong {{millisecsToString segment.start}}
+    div(class="text", contenteditable="{{content_editable}}", id="s_{{segment.start}}", seg-id="{{segment.index}}", seg-start="{{segment.start}}", seg-end="{{segment.end}}")
+        {{#each segment.labels}}
+        {{#if readonly}}
+        div(id="l_{{this.start}}", class="kw_label")
+            {{#if ../../search_string}}
+            {{highlightMatches this.value ../../../search_string}}
+            {{else}}
+            {{this.value}}
+            {{/if}}
+        {{else}}
+        div(id="l_{{this.start}}", class="kw_label {{confidenceColor this.confidence}}")
+            {{#if ../../search_string}}
+            {{highlightMatches this.value ../../../search_string}}
+            {{else}}
+            {{this.value}}
+            {{/if}}
+        {{/if}}
+        {{/each}}

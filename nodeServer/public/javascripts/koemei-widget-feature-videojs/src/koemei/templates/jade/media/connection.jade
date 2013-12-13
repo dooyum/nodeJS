@@ -1,0 +1,38 @@
+div.entry.border_box.rounded_corners
+
+  div.entry_options
+    //div.entry_option_wrap
+    //  span.entry_option.video_share_option
+    div.entry_option_wrap
+      span.entry_option.video_disconnect_option
+    //div.entry_option_wrap
+    //  span.entry_option.video_playlist_option
+
+  div.preview.show_video(style="background-image:url('{{thumbnail_path}}')")
+    div.preview_overlay
+      div.button_wrap
+        span.preview_play_button
+      div.duration_wrap
+        span.preview_video_duration.text_semibold {{secsToString media_item.size}}
+
+  div.entry_inner
+    div.title
+      a.title_link.text_semibold.show_video(href="#") {{media_item.title}}
+    div.meta(style="font-size:12px")
+      {{#if media_item.categories}}
+      span.category
+        span.icon.category_icon
+        {{#each media_item.categories}}
+        a(href="#")  {{this}},
+        {{/each}}
+      {{/if}}
+      {{#if media_item.tags}}
+      &nbsp;&nbsp;
+      span.tags
+        span.icon.tags_icon
+        {{#each media_item.tags}}
+        a(href="#")  {{this}},
+        {{/each}}
+      {{/if}}
+
+  div(style="clear:both")

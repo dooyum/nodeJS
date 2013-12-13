@@ -1,0 +1,89 @@
+facepict_size = 80px
+
+.kw_user_portal
+  font-family: 'an-regular', font_body
+  font-size: 16px // reset to default fontsize so we can use em
+
+  h1, h2, h3, h4, h5, h6
+    margin: 0
+    padding: 0
+    line-height: 1.4
+    font-family: 'an-medium', font_heading
+
+  .kw_cta
+    text-align: center
+    margin-bottom: 3em
+    .kw_container
+      padding: 2em 0
+      border-bottom: solid 1px #ddd
+      h1
+        font-size: 1.8em
+        line-height: 1.6em
+        color: #47b1e2
+
+
+  .kw_widget_info
+    position: relative
+    padding-top: 3em
+    margin-bottom: 3em
+    padding-left: 172px
+    margin-left: auto
+    margin-right: auto
+
+  .kw_widget_school
+    width: 100%
+    position: absolute
+    top: -4em
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: -1
+    opacity: 0.8
+
+  .kw_widget_author
+    position: relative
+    z-index: 2
+
+  .kw_widget_title
+  .kw_widget_name
+    background: rgba(255,255,255,0.9)
+
+  .kw_widget_name
+    font-family: "an-regular", font_body
+
+  .kw_widget_title
+    font-size: 2em
+    font-family: "an-semibold", font_heading
+
+  .kw_widget_authorpict
+    position: absolute
+    left: 0
+    top: 0
+    width: facepict_size
+    height: facepict_size
+    float: left
+    margin-right: 20px
+    border-radius: 50%
+
+  .kw_widget_related
+    @extend .clearfix
+    margin-top: 6.25em
+
+  .kw_widget_container
+    float: none
+    display: block
+    margin: 0 auto
+    width: 660px
+
+  // .kw_widget_related_videos
+  //   margin: 0
+  //   padding: 0
+
+  // .kw_widget_related_video
+  //   list-style: none
+  //   display: block
+  //   margin-bottom: 1em
+  //   // temp style for related video
+  //   img
+  //     display: block
+  //     width: 100%

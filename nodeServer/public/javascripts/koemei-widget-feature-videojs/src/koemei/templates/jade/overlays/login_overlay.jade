@@ -1,0 +1,27 @@
+div(class="kw_login_overlay")
+    div(class="wrap")
+        div(class="top")
+            div(class="title text_semibold") Login or sign up
+            div(class="caption")
+                Please enter the email address provided by your institution<br> (e.g. name@stanford.edu) to login or register.
+        div(class="divider")
+        form(id="kw_login_form")
+            div(class="content")
+                div(class="login_fields_wrap")
+                    div(class="input_wrap")
+                        input(class="border_box rounded_corners", name="email", type="text", placeholder="Email")
+                    div(class="input_wrap")
+                        input(class="border_box rounded_corners", name="password", type="password", placeholder="Password")
+                    div(class="button_wrap")
+                        button(class="account_button account_login border_box rounded_corners") Login
+                        a(href="#", class="account_button account_signup border_box rounded_corners") Sign Up
+
+        div(class="login_error_wrap", style="display:none;")
+            div(class="login_error border_box rounded_corners")
+                div(class="message")
+                    Your username or
+                    <br>
+                    password was incorrect.
+                div(class="button_wrap")
+                    a(href="#", class="account_retry border_box rounded_corners")
+                        Try Again

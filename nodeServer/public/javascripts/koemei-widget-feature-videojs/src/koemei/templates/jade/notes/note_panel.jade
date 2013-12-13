@@ -1,0 +1,16 @@
+.section.note_section.border_box
+    .section_top
+        .note_list_top
+            .note_options
+                ul.neutral_options.options
+                    li
+                        a.new_note_button.border_box.rounded_corners(href="#") New Note
+                form(id="notes_search")
+                    .notes_search_wrap
+                        span.notes_search_results(style="display:none") XX matches found
+                        button.notes_search_button.kw_icon_search.border_box(type="submit") &nbsp
+                        input.notes_search.border_box(type="text", placeholder="Search Notes", name="search_string")
+
+    div.section_body.note_list.border_box.rounded_corners(style="height:{{height}}px; overflow-y:scroll;")
+        .section_type_notes.section_type
+            ul.notes

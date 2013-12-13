@@ -1,0 +1,10 @@
+{{#if show_info}}
+div(class="video_info_button")
+{{/if}}
+div(class="video_tour_button")
+div(class="koemei_shaded_overlay", style="display:none;")
+div(class="heatmap_notes", style="left:{{left_space}}px; width:100%; display:none;")
+div(class="widget_player_wrapper",style="width:{{width}}px; height:{{height}}px; background-color: black;")
+	{{#if videojs}}
+	video(class="player_content", id="widget_player", src="{{file_name}}", style="width:100%; height:100%; background-color: black;", controls, preload="false")
+	{{/if}}

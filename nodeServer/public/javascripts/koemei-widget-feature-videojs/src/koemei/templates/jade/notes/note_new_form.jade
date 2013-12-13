@@ -1,0 +1,44 @@
+div(class="edit_note_section section border_box")
+    div(class="section_body rounded_corners border_box")
+        div(class="note_edit_name_wrap")
+            span(class="note_edit_name text_semibold") {{title}}
+            {{!#if time}}
+            span(class="note_link_to_time")
+                //span(class="note_link_icon checked", data-time="{{time}}")
+                | Link to {{secsToString time}}
+            //input(type="hidden", id="kw_link_to_time", value="1")
+            {{!else}}
+            //input(type="hidden", id="kw_link_to_time", value="0")
+            {{!/if}}
+
+        div(id="kw_notes_toolbar", class="koemei_editor_toolbar")
+            a(data-wysihtml5-command="bold", title="CTRL+B")
+                span(class="kw_bold") bold
+            a(data-wysihtml5-command="italic", title="CTRL+I")
+                span(class="kw_italic") italic
+            a(data-wysihtml5-command="underline", title="CTRL+U")
+                span(class="kw_underline") underline
+        div
+            textarea(class="ckeditor rounded_corners border_box", id="kw_notes_editor", name="note_editor")
+                {{content}}
+            div(class="note_attachment_list")
+                div(class="note_attachment")
+                div(class="note_attachment")
+                div(class="note_attachment")
+                div(class="clear_b")
+        div(class="note_editor_bottom")
+            ul(class="note_editor_buttons float_right")
+                li
+                    div
+                        a(class="button rounded_corners border_box text_semibold new_note_cancel_button") Cancel
+                li
+                    div
+                        a(class="button positive rounded_corners border_box text_semibold new_note_post_button", data-mode="{{mode}}", data-id="{{id}}", href="") Post
+            ul(class="note_permission_option")
+                li
+                    div
+                        button(class="note_permission_public toggle_option text_semibold rounded_corners border_box active", href="#") Public
+                li
+                    div
+                        button(class="note_permission_private toggle_option text_semibold rounded_corners border_box", href="#") Private
+                            span(class="icon")

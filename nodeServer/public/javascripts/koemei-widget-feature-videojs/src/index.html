@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <title>Koemei widget</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Koemei plugin demo" />
+    <meta name="keywords" content="Koemei,plugin,demo" />
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link type="text/css" rel="stylesheet" href="https://d18embnwuxbhpk.cloudfront.net/css/smoothness/jquery-ui-1.8.17.custom.css">
+</head>
+
+<body>
+    <div id="player"></div>
+
+    <!--script src="http://code.jquery.com/jquery-1.9.0.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
+
+    <script src="https://d18embnwuxbhpk.cloudfront.net/javascript/libraries/easyXDM/easyXDM.min.js" type="text/javascript"></script>
+    <script src="jwplayer/jwplayer.js" type="text/javascript"></script>
+    <!-- TODO : move those files inside this plugin ? -->
+    <script src="https://d18embnwuxbhpk.cloudfront.net/javascript/libraries/jquery.sbscroller.js" type="text/javascript"></script>
+    <script src="https://d18embnwuxbhpk.cloudfront.net/javascript/libraries/jquery.mousewheel.js" type="text/javascript"></script>
+    <script src="https://d18embnwuxbhpk.cloudfront.net/javascript/libraries/jquery.jnotify.min.js" type="text/javascript"></script>
+    <script src="javascript/koemei.edit.js" type="text/javascript"></script>
+    <script src="javascript/koemei.utils.js" type="text/javascript"></script>
+    <script src="javascript/koemei.resource.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var transcript_uuid = '';
+        var media_uuid = 'ef919104-4352-49b1-80c5-a419383a621e';
+        var username = 'testuser@koemei.com';
+        var password = '<CHANGEME>';
+        var auth = make_base_auth(username,password);
+        var static_cdn_path = 'https://d18embnwuxbhpk.cloudfront.net';
+        var usermedia_cdn_path = 'rtmp://usermedia.koemei.com/cfx/st/';
+        var media_streaming_path = '';
+        var published = false;
+
+    // get the media infos
+    getMedia(media_uuid, auth, function(media_info){
+        transcript_uuid = media_info['current_transcript_uuid'];
+        media_streaming_path = media_info.streaming_url;
+        published = media_info.publish_status;
+
+        try {
+            // Define player with koemei.widget plugin
+            player = jwplayer('player').setup({
+                'modes': [
+                        {type: 'flash', src: static_cdn_path+'/javascript/libraries/jwplayer/player.swf'}
+                ],
+                'provider': 'rtmp',
+                'streamer': usermedia_cdn_path,
+                file: media_streaming_path,
+                'skin': usermedia_cdn_path+'/widget/skins/koemei.zip',
+                'width': '640',
+                'height': '360',
+                plugins: {
+                    'javascript/koemei.widget.js': {
+                        text: 'no transcript loaded',
+                        position : 'bottom',
+                        media_uuid : media_uuid,
+                        transcript_uuid : transcript_uuid,
+                            auth : auth,
+                        width : '680px', // TODO : allow this parameter to be changed (inner div width is currently not changed!)
+                            height: '300px',
+                            save_button_class : 'btn-2',
+                            publish_button_class : 'btn-2'
+                    }
+                }
+            });
+        }
+        catch(err){
+            console.error("Error in setting up koemei player : "+err.message+"("+err.lineNumber+")");
+        }
+    });
+    </script>
+</body>
+</html>

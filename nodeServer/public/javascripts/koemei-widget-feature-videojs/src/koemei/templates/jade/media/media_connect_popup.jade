@@ -1,0 +1,23 @@
+div.overlay
+div.single_video_connect_popup.popup.border_box.rounded_corners
+  div.popup_section
+    div.heading {{#unless connect}}DIS{{/unless}}CONNECT VIDEO
+    div.message.mg_btm_10.
+      {{#if connect}}
+      Would you like to connect to this video?
+      {{else}}
+      Are you sure you want to remove the connection this video has to the one you're watching?
+      {{/if}}
+  div.divider
+  div.popup_section
+    div.button.neutral.border_box.rounded_corners.btn_cancel
+      span.text Cancel
+    {{#if connect}}
+    div.button.positive.border_box.rounded_corners.btn_save.btn_connect
+      span.text Connect
+    {{else}}
+    div.button.positive.border_box.rounded_corners.btn_save.btn_disconnect
+      span.text Disconnect
+    {{/if}}
+    div.clear
+  div.arrow.top

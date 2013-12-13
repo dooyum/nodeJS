@@ -1,0 +1,23 @@
+{"segments": 
+	[{"start": 0, 
+	  "label_seqs": 
+	  	[{"labels":[
+	  	{"start": 0,"confidence": 1, "end": 400, "id": 1, "value": "you."},
+	  	{"start": 1, "confidence": 1, "end": 100, "id": 2, "value": "Okay"}, 
+	  	{"start": 100, "confidence": 1, "end": 200, "id": 3, "value": "I"}, 
+	  	{"start": 200, "confidence": 1, "end": 300, "id": 4, "value": "as"}, 
+	  	{"start": 300, "confidence": 1, "end": 400, "id": 5, "value": "I"}]
+	  	}]
+	},
+	{"start": 400, 
+	  "label_seqs": 
+	  	[{"labels":[
+	  	{"start": 0, "confidence": 1, "end": 400, "id": 1, "value": "you."},
+	  	{"start": 400, "confidence": 1, "end": 500, "id": 2, "value": "Will"}, 
+	  	{"start": 500, "confidence": 1, "end": 600, "id": 3, "value": "display"}, 
+	  	{"start": 600, "confidence": 1, "end": 700, "id": 4, "value": "this"}, 
+	  	{"start": 700, "confidence": 1, "end": 800, "id": 5, "value": "sentence"}]
+	  	}]
+	}
+	]
+}

@@ -1,0 +1,21 @@
+div.overlay
+div.playlist_popup.popup.border_box.rounded_corners
+  form#add_to_playlist
+    div.popup_section
+      div.heading ADD TO PLAYLIST
+      div.content
+        select.border_box.rounded_corners(name="current_playlist")
+          option(value="") Select
+          {{#each playlists}}
+          option(value="{{this.uuid}}") {{this.title}}
+          {{/each}}
+    div.divider
+    div.popup_section
+      div.heading ADD TO NEW PLAYLIST
+      div.content
+        input.border_box.rounded_corners(type="text", placeholder="New Playlist", name="new_playlist")
+    div.divider
+    div.popup_section.last
+      div.content
+        button.button.positive.convert_button.border_box.rounded_corners(id="add_to_playlist_button") Add Video
+  div.arrow.top

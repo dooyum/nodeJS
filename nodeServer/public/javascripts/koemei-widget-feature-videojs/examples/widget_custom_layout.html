@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+This is an example of customization of the widget layout:
+    provides a custom css (custom_css_path)
+    sets the sizes for player and bottom panel (video_height, video_width, widget_height, width)
+    enables only the transcript panel (features)
+    puts the video info in a separate element so we can place it wherever we want (detach_info)
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" class="win">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+    <!-- css -->
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">    
+
+    <!-- js libraries -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="../src/koemei/js/config.js"></script>
+    <!--script type="text/javascript" src="https://s3.amazonaws.com/seb.koemei.com/widget/latest/javascript/koemei-widget.js"></script-->
+    <script type="text/javascript" src="../dist/koemei-widget.js"></script>
+
+
+</head>
+
+<body style="margin:100px">
+  <script type="text/javascript">
+        /**
+         * This script tag allows development configs to be specified with a ?env= query parameter.
+         * For example, visit /widget.html?env=localhost to specify the localhost config.
+         * You can completely omit this in production.
+         */
+        function getParameterByName(name) {
+            var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+            return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+        }
+        var env = getParameterByName('env');
+        if (!env)
+            env = 'prod';
+  </script>
+
+  <script type="text/javascript">
+    new KoemeiWidget({
+      media_uuid: 'a5113b4b-44a2-4a4a-a8f7-718735be1f06',
+      custom_css_path: "/examples/widget_custom_layout.css",
+      toolbar: false, // This doesn't work?
+      detach_info: true,
+      show_confidence: true,
+      video_height: 230, // height of the video
+      video_width: 406, // width of the video
+      widget_height: 569, // height of the transcript panel
+      width: 570, //width of the transcript pannel
+      features: {
+        transcript: true,
+        notes: false,
+        videos: false
+      },
+      // Development only: these values will be populated if a ?config= param was given.
+      // If no config was given, these values will be undefined and the default values (production) will be used.
+      static_cdn_path: config[env].static_cdn_path,
+      usermedia_cdn_path: config[env].usermedia_cdn_path,
+      koemei_css_path: "../"+config[env].koemei_css_path,
+      koemei_host: config[env].koemei_host
+    });
+  </script>
+
+</body>
+</html>

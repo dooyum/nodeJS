@@ -1,0 +1,20 @@
+div.overlay
+div.profile_popup.popup.border_box.rounded_corners
+  div.popup_section
+    div.profile_user
+      div.profile_picture(style="background-image:url({{getAvatarPath user}});")
+      span.profile_name You
+  div.divider
+  div.popup_section.last
+    div.content
+      ul.link_list
+        li
+          div
+            a.edit_profile(href="#") Edit profile
+        li
+          div
+            a.to_account(href="#") Go to account
+        li
+          div
+            a.sign_out(href="#") Sign out
+  div.arrow.top

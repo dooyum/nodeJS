@@ -1,0 +1,205 @@
+/*variables*/
+/*WIDGET BAR*/
+.koemei_widget .widget_bar {
+  background-color: #3F4A53;
+  width: 100%;
+  height: 48px;
+  padding: 8px;
+}
+.koemei_widget .widget_bar .login_button {
+  cursor: pointer;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 15px;
+  font-size: 12px;
+  color: #66839a;
+  background: #FFFFFF;
+}
+.koemei_widget .widget_bar .login_button:hover {
+  background: #F2F2F2;
+}
+.koemei_widget .widget_bar .login_button:active {
+  background: #FFFFFF;
+}
+.koemei_widget .widget_bar .kw_bar_options {
+  float: right;
+}
+.koemei_widget .widget_bar .kw_bar_options ul,
+.koemei_widget .widget_bar .kw_bar_options li {
+  list-style: none outside none;
+  margin: 0;
+}
+.koemei_widget .widget_bar .kw_bar_options ul {
+  height: 32px;
+}
+.koemei_widget .widget_bar .kw_bar_options ul li {
+  float: left;
+  display: inline-block;
+  height: 32px;
+  margin-left: 5px;
+}
+.koemei_widget .widget_bar .kw_bar_options a {
+  color: white;
+  text-decoration: none;
+}
+.koemei_widget .widget_bar .kw_bar_options a:visited {
+  color: white;
+  text-decoration: none;
+}
+.koemei_widget .widget_bar .kw_bar_options a:hover {
+  color: white;
+  text-decoration: none;
+  opacity: 0.8;
+}
+.koemei_widget .widget_bar .kw_bar_options a:hover .icon.playlist_button_icon {
+  background-image: url('assets/@1x/icon-add-active.png');
+}
+.koemei_widget .widget_bar .kw_bar_options a:hover .icon.share_button_icon {
+  background-image: url('assets/@1x/icon-share-active.png');
+}
+.koemei_widget .widget_bar .kw_bar_options a.active,
+.koemei_widget .widget_bar .kw_bar_options a:active {
+  color: white;
+  text-decoration: none;
+  opacity: 1;
+}
+.koemei_widget .widget_bar .kw_bar_options a.active .icon.playlist_button_icon,
+.koemei_widget .widget_bar .kw_bar_options a:active .icon.playlist_button_icon {
+  background-image: url('assets/@1x/icon-add-active.png');
+}
+.koemei_widget .widget_bar .kw_bar_options a.active .icon.share_button_icon,
+.koemei_widget .widget_bar .kw_bar_options a:active .icon.share_button_icon {
+  background-image: url('assets/@1x/icon-share-active.png');
+}
+.koemei_widget .widget_bar .kw_bar_options a.active .icon.profile_button_icon,
+.koemei_widget .widget_bar .kw_bar_options a:active .icon.profile_button_icon {
+  background-image: url('assets/@1x/icon-profile-active.png');
+}
+.koemei_widget .widget_bar .kw_bar_options a.active .icon.connect_videos_button_icon,
+.koemei_widget .widget_bar .kw_bar_options a:active .icon.connect_videos_button_icon {
+  background-image: url('assets/@1x/icon-modal-connect-active.png');
+}
+.koemei_widget .widget_bar .kw_bar_options a.liked:hover {
+  color: white;
+  text-decoration: none;
+  opacity: 1;
+}
+.koemei_widget .widget_bar .kw_bar_options a.icon.playlist_button_icon {
+  background-image: url('assets/@1x/icon-add.png');
+  background-position: 4px 3px;
+}
+.koemei_widget .widget_bar .kw_bar_options a.icon.share_button_icon {
+  background-image: url('assets/@1x/icon-share.png');
+  background-position: 0px 2px;
+}
+.koemei_widget .widget_bar .kw_bar_options a.icon.like_button_icon {
+  background-image: url('assets/@1x/icon-like.png');
+  background-position: 0px 0px;
+}
+.koemei_widget .widget_bar .kw_bar_options a.icon.profile_button_icon {
+  background-image: url('assets/@1x/icon-profile-active.png');
+}
+.koemei_widget .widget_bar .kw_bar_options a.icon.connect_videos_button_icon {
+  width: 26px;
+  height: 26px;
+  xbackground-position: 4px 3px;
+}
+.koemei_widget .widget_bar .kw_bar_options .icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: top left;
+}
+.koemei_widget .widget_bar .kw_bar_options .like_button .like_button_count {
+  vertical-align: baseline;
+  font-size: 11px;
+  color: white;
+}
+.koemei_widget .bar_sections {
+  float: left;
+}
+.koemei_widget .bar_sections ul,
+.koemei_widget .bar_sections li {
+  list-style: none outside none;
+  margin: 0;
+}
+.koemei_widget .bar_sections ul {
+  height: 32px;
+}
+.koemei_widget .bar_sections ul li {
+  float: left;
+  display: inline-block;
+  height: 32px;
+  margin-right: 5px;
+}
+.koemei_widget .bar_sections a {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+.koemei_widget .bar_sections a:active,
+.koemei_widget .bar_sections a:visited {
+  text-decoration: none;
+}
+.koemei_widget .bar_sections a:hover {
+  background: #1a1d21;
+  text-decoration: none;
+  box-shadow: 0 1px #4b5056;
+}
+.koemei_widget .bar_sections a:hover .icon.transcript_button_icon {
+  background-image: url('assets/@1x/icon-transcript-active.png');
+}
+.koemei_widget .bar_sections a:hover .icon.notes_button_icon {
+  background-image: url('assets/@1x/icon-notes-active.png');
+}
+.koemei_widget .bar_sections a:hover .icon.videos_button_icon {
+  background-image: url('assets/@1x/icon-videos-active.png');
+}
+.koemei_widget .bar_sections a:hover .icon.binders_button_icon {
+  background-image: url('assets/@1x/icon-snippets-active.png');
+}
+.koemei_widget .bar_sections a.active {
+  background: #1a1d21;
+  box-shadow: 0 1px #4b5056;
+}
+.koemei_widget .bar_sections a.active .icon.transcript_button_icon {
+  background-image: url('assets/@1x/icon-transcript-active.png');
+}
+.koemei_widget .bar_sections a.active .icon.notes_button_icon {
+  background-image: url('assets/@1x/icon-notes-active.png');
+}
+.koemei_widget .bar_sections a.active .icon.videos_button_icon {
+  background-image: url('assets/@1x/icon-videos-active.png');
+}
+.koemei_widget .bar_sections a.active .icon.binders_button_icon {
+  background-image: url('assets/@1x/icon-snippets-active.png');
+}
+.koemei_widget .bar_sections a .icon.transcript_button_icon {
+  background-image: url('assets/@1x/icon-transcript.png');
+  background-position: 2px 2px;
+}
+.koemei_widget .bar_sections a .icon.notes_button_icon {
+  background-image: url('assets/@1x/icon-notes.png');
+  background-position: 4px 1px;
+}
+.koemei_widget .bar_sections a .icon.videos_button_icon {
+  background-image: url('assets/@1x/icon-videos.png');
+  background-position: 3px 3px;
+}
+.koemei_widget .bar_sections a .icon.binders_button_icon {
+  background-image: url('assets/@1x/icon-videos-active.png');
+}
+.koemei_widget .bar_sections .icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: top left;
+}

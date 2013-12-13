@@ -1,0 +1,72 @@
+div(class="note_wrap border_box rounded_corners")
+    div(class="note_wrap_inner")
+        div(class="note_avatar_column")
+            div(class="note_author_avatar", style="background-image:url({{getAvatarPath note.author}})")
+        div(class="note_body_column")
+            div(class="note_content_wrap")
+                span(class="note_author_name text_semibold")
+                    {{displayName note.author}}
+                &nbsp;&ndash;&nbsp;
+                span(class="note_content")
+                    {{#if search_string}}
+                    {{{highlightMatches note.content search_string}}}
+                    {{else}}
+                    {{{note.content}}}
+                    {{/if}}
+            div(class="note_attachment_wrap")
+                div(class="note_attachment")
+                div(class="note_attachment")
+                div(class="clear_b")
+            div(class="note_option_wrap")
+                span(class="note_option note_reply_button rounded_corners tooltip_invoker", data-left="8", data-top="40", data-tooltip-text="Reply")
+                    span(class="icon note_reply_icon")
+                span(class="note_option note_share_button rounded_corners tooltip_invoker", data-id="{{note.id}}", data-left="8", data-top="40", data-tooltip-text="Share")
+                    span(class="icon note_share_icon")
+                {{#if user_is_note_author}}
+                span(class="note_option note_edit_button rounded_corners tooltip_invoker", data-id="{{note.id}}", data-left="8", data-top="40", data-tooltip-text="Edit")
+                    span(class="icon note_edit_icon")
+                {{#unless note.replies}}
+                span(class="note_option note_delete_button rounded_corners tooltip_invoker", data-id="{{note.cid}}", data-left="8", data-top="40", data-tooltip-text="Delete")
+                    span(class="icon note_delete_icon")
+                {{/unless}}
+                {{/if}}
+                {{#if note.start_time}}
+                span(class="note_timeskip_button border_box rounded_corners", data-timestamp="{{note.created}}")
+                    span(class="note_timeskip_icon")
+                    span(class="note_timeskip_time text_semibold")
+                        {{note.start_time}}
+                {{/if}}
+                span(class="note_modified_date")
+                    {{dateToFuzzy note.created}}&nbsp;
+                    //TODO: public vs private note!!
+                    span(class="note_locked_icon")
+                div(class="clear_b")
+            //div(class="note_replies_more_wrap")
+            //  a(href="#")
+            //      View previous 17 replies
+
+            div(class="note_replies_list")
+                {{#each note.replies}}
+                div(class="note_reply_wrap")
+                    div(class="note_reply_body_column border_box")
+                          div(class="note_reply_content_wrap")
+                              div(class="note_reply_avatar_column")
+                                  div(class="note_reply_author_avatar", style="background-image:url({{getAvatarPath this.author}})")
+                              span(class="note_reply_author_name text_semibold")
+                                {{displayName this.author}}
+                              &nbsp;&ndash;&nbsp;
+                              span(class="note_reply_content border_box")
+                                {{#if ../search_string}}
+                                {{highlightMatches this.content ../../search_string}}
+                                {{else}}
+                                {{this.content}}
+                                {{/if}}
+                {{/each}}
+                {{#if user}}
+                div(class="note_reply_wrap leave_reply")
+                    div(class="note_reply_body_column  border_box")
+                        form(class="reply_note")
+                            div(class="note_reply_avatar_column")
+                                div(class="note_reply_author_avatar", style="background-image:url({{getAvatarPath user}})")
+                            input(type="text", name="note_reply", placeholder="Leave a reply", class="note_reply_input border_box rounded_corners")
+                {{/if}}

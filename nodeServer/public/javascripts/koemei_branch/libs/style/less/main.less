@@ -1,0 +1,105 @@
+/*variables*/
+@path: 'assets';
+@regular: 'an-regular';
+@medium: 'an-medium';
+@semibold: 'an-semibold';
+@bold: 'an-bold';
+
+/*reset*/
+.koemei_widget {
+	div,ul,ol,li,h1,h2,h3,pre,form,fieldset,legend,input,textarea,p,blockquote,th,td {
+		margin:0; padding:0;
+	}
+	table {
+		border-collapse:collapse;border-spacing:0; 
+	}
+	fieldset,img {
+		border:0;
+	}
+	address,caption,cite,code,dfn,em,strong,th,var {
+		font-style:normal;font-weight:normal;
+	}
+	li {
+		list-style:none;
+	}
+	caption,th {
+		text-align:left;
+	}
+	h1,h2,h3,h4,h5,h6 { 
+		font-size:100%;font-weight:normal;
+	}
+	q {
+		&:before,&:after {
+			content:'';
+		}
+	}
+	abbr,acronym { 
+		border:0;font-variant:normal;
+	}
+	sup, sub { 
+		line-height:0px;vertical-align: text-top;
+	}
+	sub {	
+		vertical-align:text-bottom;
+	}
+	input,textarea,select { 
+		font-family:inherit;font-size:inherit;font-weight:inherit;
+	}
+	section,article,aside,footer,header,nav,hgroup {
+		display:block;
+	}
+	a { 
+		outline: none;
+	}
+}
+
+/*fonts*/
+@font-face { font-family: 'an-regular'; src: url('@{path}/fonts/AvenirNext-Regular.otf') format('opentype'); font-weight:normal; font-style:normal; }
+@font-face { font-family: 'an-semibold'; src: url('@{path}/fonts/AvenirNext-DemiBold.otf') format('opentype'); font-weight:normal; font-style:normal; }
+@font-face { font-family: 'an-bold'; src: url('@{path}/fonts/AvenirNext-Bold.otf') format('opentype'); font-weight:normal; font-style:normal; }
+@font-face { font-family: 'an-medium'; src: url('@{path}/fonts/AvenirNext-Medium.otf') format('opentype'); font-weight:normal; font-style:normal; }
+
+/*GENERAL WIDGET*/
+.koemei_widget {
+	width:500px; 
+	font: 16px/1.2 '@{regular}', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	.border_box {
+		box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; 
+	}	
+	.rounded_corners {
+		 border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; 
+	}
+	.facebook_button_bg { background-color:#4860a6; }
+	.twitter_button_bg { background-color:#47b1e2; }
+	.google_button_bg { background-color:#e95021; }
+	.email_button_bg { background-color:#bbbbbb; }
+	.koemei_button_bg { background-color:#66839a; }
+	.text_regular {
+		font-family: '@{regular}', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	}
+	.text_medium {
+		font-family: '@{medium}', 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+	}
+	.text_semibold {
+		font-family: '@{semibold}', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	}
+	.text_bold {
+		font-family: '@{bold}', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	}
+	.widget_player {
+		position:relative;
+		width:100%;
+		height:324px;
+	}
+	.koemei_shaded_overlay { 
+		position:absolute; 
+		top:0; 
+		left:0; 
+		width:100%; 
+		height:100%; 
+		z-index: 9999;
+    	background:#000000; 
+    	opacity:.8; 
+    	filter: Alpha(Opacity=80); 
+    }
+}

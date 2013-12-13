@@ -1,0 +1,40 @@
+div(class="entry border_box rounded_corners")
+    div(class="entry_options")
+        div(class="entry_option_wrap")
+            span(class="entry_option video_share_option", data-id="{{media_item.id}}", data-pid="{{playlist.id}}", data-type="share",  data-object="playlist_video")
+        div(class="entry_option_wrap")
+            span(class="entry_option video_{{#unless connected}}dis{{/unless}}connect_option", data-id="{{media_item.id}}", data-pid="{{playlist.id}}", data-type="connect", data-object="playlist_video")
+        div(class="entry_option_wrap")
+            span(class="entry_option playlist_edit_option", data-id="{{media_item.id}}", data-pid="{{playlist.id}}", data-type="edit", data-object="playlist_video")
+        {{#if media_item.playlist}}
+        div(class="entry_option_wrap")
+            span(class="entry_option playlist_delete_video_option", data-id="{{media_item.id}}", data-object="playlist_video", data-pid="{{playlist.id}}", data-type="delete")
+        {{/if}}
+    div(class="preview show_video", data-id="{{media_item.id}}", style="background-image:url({{media_item.thumbnail_path}});")
+        div(class="preview_overlay")
+            div(class="button_wrap")
+                span(class="preview_play_button")
+            div(class="duration_wrap")
+                span(class="preview_video_duration text_semibold"){{secsToString media_item.size}}
+    div(class="entry_inner")
+        div(class="title")
+            {{#if search_string}}
+            a(href="#", class="title_link text_semibold show_video", data-id="{{media_item.id}}", title="{{media_item.title}}") {{highlightMatches media_item.title search_string}}
+            {{else}}
+            a(href="#", class="title_link text_semibold show_video", data-id="{{media_item.id}}", title="{{media_item.title}}") {{media_item.title}}
+            {{/if}}
+        div(class="meta")
+            {{#if media_item.categories}}
+            span.category
+                {{#each media_item.categories}}
+                span(class="icon category_icon") &nbsp; {{this}},
+                {{/each}}
+            {{/if}}
+            &nbsp;&nbsp;
+            {{#if media_item.tags}}
+            span(class="tags")
+                {{#each media_item.tags}}
+                span(class="icon tags_icon") &nbsp; {{this}},
+                {{/each}}
+            {{/if}}
+    div(class="clear_b")

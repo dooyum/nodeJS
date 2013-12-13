@@ -1,0 +1,104 @@
+.koemei_widget {
+  position: static;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* moves the player */
+.koemei_widget .widget_player {
+  position: absolute;
+  top: 181px;
+  left: 50%;
+  margin-left: 97px;
+  width: 406px;
+  height: 230px;
+}
+
+/* moves the transcript confidence */
+.koemei_widget .transcript_confidence {
+  position: absolute;
+  top: 136px;
+  left: 50%;
+  margin-left: 97px;
+  width: 406px;
+}
+.koemei_widget .transcript_confidence .confidence {
+  float: right;
+  opacity: 0.5;
+  border: 2px solid #313e49;
+  border-radius: 2px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 5px 5px 2px;
+  font-size: 10px;
+}
+
+/* moves the video info to bellow the player */
+.koemei_widget .koemei_video_info {
+  width: 406px;
+  height: auto;
+  padding: 0;
+  top: 435px;
+  left: 50%;
+  margin-left: 97px;
+  color: #313e49;
+}
+/* hides the white clock icon */
+.koemei_widget .koemei_video_info .date.item {
+  padding: 0;
+}
+.koemei_widget .koemei_video_info .date .icon {
+  display: none;
+}
+
+/* hides a bar between the player and the transcript */
+.koemei_widget .widget_bar {
+  padding: 0;
+  height: 0;
+}
+
+/* moves the transcript pannel */
+.koemei_widget .widget_hold_panel {
+  width: 570px;
+  position: absolute;
+  top: 138px;
+  right: 50%;
+  margin-right: -70px;
+}
+.koemei_widget .transcript_section {
+  padding: 0;
+  background: #fff;
+}
+.koemei_widget .transcript_section .section_top {
+  height: 65px;
+  padding: 10px;
+  margin: 0;
+  border-bottom: 2px solid #e5e5e5;
+}
+.koemei_widget .transcript_section .section_top .transcript_search_wrap {
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+.koemei_widget .transcript_section .section_body {
+  padding: 0;
+  height: 500px !important;
+  box-shadow: none;
+}
+/* style the search box */
+.koemei_widget .transcript_search_wrap {
+  height: 27px;
+}
+.koemei_widget .transcript_search_wrap .transcript_search_button {
+  width: 28px;
+  height: 27px;
+  border: 2px solid #ddd;
+  border-right: none;
+  box-shadow: none;
+}
+.koemei_widget .transcript_search_wrap .transcript_search {
+  width: 145px;
+  height: 27px;
+  border: 2px solid #ddd;
+  border-left: none;
+  box-shadow: none;
+}

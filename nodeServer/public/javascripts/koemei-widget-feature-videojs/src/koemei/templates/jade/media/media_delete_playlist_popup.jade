@@ -1,0 +1,13 @@
+div.overlay
+div.playlist_delete_popup.popup.border_box.rounded_corners
+  div.popup_section
+    div.heading DELETE PLAYLIST
+      div.message.mg_btm_10 Are you sure you want to delete the playlist {{model.title}}
+    div.divider
+    div.popup_section
+      div.button.neutral.save_button.border_box.rounded_corners.close_popup.btn_cancel
+        span.text Cancel
+      div.button.positive.submit_button.border_box.rounded_corners.btn_save.delete_action(data-attr="{{model.id}}")
+        span.text Remove
+      div.clear
+    div.arrow.top

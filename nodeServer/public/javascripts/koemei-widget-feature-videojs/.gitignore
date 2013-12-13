@@ -1,0 +1,12 @@
+/dist/
+/node_modules/
+/src/koemei/js/
+/src/koemei/style/widget.css
+/src/koemei/templates/js/
+/src/koemei/templates/html/
+/spec/js/
+/.grunt/
+/SpecRunner.html
+.DS_Store
+.nfs*
+.idea/

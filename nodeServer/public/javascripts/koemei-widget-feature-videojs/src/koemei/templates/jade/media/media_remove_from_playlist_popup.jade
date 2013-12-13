@@ -1,0 +1,13 @@
+div.overlay
+div.playlist_video_delete_popup.popup.border_box.rounded_corners
+  div(class="popup_section")
+    div(class="heading") REMOVE VIDEO
+      div(class="message mg_btm_10") Are you sure you want to remove this video from playlist {{playlist.title}}
+    div(class="divider")
+    div(class="popup_section")
+      div(class="button neutral save_button border_box rounded_corners close_popup btn_cancel")
+        span(class="text") Cancel
+      div(class="button positive submit_button border_box rounded_corners btn_save delete_action", data-attr="{{model.id}}")
+        span(class="text") Remove
+      div(class="clear")
+    div(class="arrow top")

@@ -22,7 +22,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-//app.use(express.bodyParser());
+app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
@@ -37,6 +37,16 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.post('/streamUpload', routes.streamUpload);
 app.get('/serveFile/:fileName', routes.serveFile);
+app.get('/getMetadata/:fileName', routes.getMetadata);
+app.get('/getTranscript/:fileName', routes.getTranscript);
+app.get('/serveVideo/:fileName', routes.serveVideo);
+app.get('/serveSubtitles/:fileName', routes.serveSubtitles);
+app.post('/today', function(req,res){
+	console.log(req);
+
+	res.writeHead(200, { 'Content-Type': 'text/plain' }); //content type should be dynamic
+	res.end("test", 'utf-8');
+});
 
 app.get('/file/:fileRoute', function(req, res){ 
 	//res.sendfile('../output/' + req.params.fileRoute);

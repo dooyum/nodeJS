@@ -1,0 +1,40 @@
+{{#if confidence}}
+div(class="transcript_confidence")
+    div(class="confidence")
+        {{confidence}}% transcribed
+{{/if}}
+div(class="koemei_video_info border_box")
+    div(class="info_body")
+        div(class="title text_semibold", id="kw_info_title")
+            {{media_item.title}}
+        div(class="meta")
+            div(class="date item")
+                span(class="icon info_date_icon")
+                {{dateToFuzzy media_item.created}}
+            {{#if media_item.authors}}
+            div(class="author item")
+                span(class="icon info_author_icon")
+                    {{#each media_item.authors}}
+                    {{this}},
+                    {{/each}}
+            {{/if}}
+            {{#if media_item.categories}}
+            div(class="category item")
+                span(class="icon info_category_icon")
+                    {{#each media_item.categories}}
+                    {{this}},
+                    {{/each}}
+            {{/if}}
+        div(class="body")
+            {{media_item.description}}
+        div(class="meta")
+            {{#if media_item.tags}}
+            div(class="tag item")
+                span(class="icon info_tag_icon")
+                    {{#each media_item.tags}}
+                    {{this}},
+                    {{/each}}
+            {{/if}}
+    {{#if show_close}}
+    div(class="video_info_close_button close_overlay_panel kw_icon_close")
+    {{/if}}

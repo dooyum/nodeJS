@@ -1,0 +1,28 @@
+.section.transcript_section.border_box
+    .section_top
+        .transcript_options
+            //ul(class="neutral_options options")
+            //    li
+            //        a(href="#", class="edit_button border_box rounded_corners") Edit
+            //ul(class="published_options options")
+            //    li
+            //        a(href="#", class="download_button border_box rounded_corners") Download
+            {{#unless readonly}}
+            ul.edit_options.options
+                {{#if last_saved}}
+                li
+                    span.auto_save_message Saved {{dateToFuzzy last_saved}}
+                {{/if}}
+            //    li
+            //        a(href="#", class="finish_button emphasis border_box rounded_corners") Finish
+            {{/unless}}
+        .transcript_search_wrap
+            form(id="transcript_search")
+                span.transcript_search_results(style="display:none") XX matches found
+                button.transcript_search_button.kw_icon_search.border_box(type="submit") &nbsp;
+                input.transcript_search.border_box(type="text", name="search_string", placeholder="Search transcript")
+        .controls_button_wrap
+            span.percent_transcribed 74%
+            a.controls_button(href="#")
+                span.icon.transcript_control_icon
+    .section_body.transcript_list.border_box.rounded_corners(id="kw_transcript_container", style="height:{{height}}px;")

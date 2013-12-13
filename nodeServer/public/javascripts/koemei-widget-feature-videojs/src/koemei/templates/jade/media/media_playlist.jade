@@ -1,0 +1,26 @@
+div(class="entry border_box rounded_corners")
+    div(class="entry_options")
+        div(class="entry_option_wrap")
+            span(class="entry_option playlist_share_option", data-type="share", data-object="playlist",  data-id="{{playlist.uuid}}")
+        div(class="entry_option_wrap")
+            span(class="entry_option playlist_edit_option", data-type="edit_playlist_name", data-object="playlist", data-id="{{playlist.uuid}}")
+        div(class="entry_option_wrap")
+            span(class="entry_option playlist_delete_option ", data-type="delete", data-object="playlist", data-id="{{playlist.uuid}}")
+        // Make the nice 3 thumbs like in the userspace
+    div(class="preview show_playlist", data-id="{{playlist.uuid}}")
+        div(class="preview_overlay")
+            {{#each playlist.thumbnails}}
+            img(src="{{this}}")
+            {{/each}}
+    div(class="entry_inner")
+        div(class="title")
+            a(href="#", class="title_link text_semibold show_playlist", data-id="{{playlist.uuid}}", title="{{playlist.title}}") {{playlist.title}}
+        div(class="meta f_s_12")
+            span(class="playlist_size")
+                span(class="icon playlist_size_icon")
+                &nbsp;{{playlist.videos.length}} videos
+            &nbsp;&nbsp;
+            span(class="playlist_duration")
+                span(class="icon playlist_duration_icon")
+                &nbsp; {{secsToString playlist.videos.duration}}
+    div(class="clear_b")

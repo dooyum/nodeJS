@@ -1,0 +1,32 @@
+a.img.kw_video_list_link(href="#", data-id="{{media_item.uuid}}", data-start="0", style="background-image:url({{media_item.thumbnail_path}})")
+    span {{media_item.duration}}
+.kw_art_header
+    h1
+        {{#if search_string}}
+        a.kw_video_list_link(href="#", data-start="0", data-id="{{media_item.uuid}}") {{highlightMatches media_item.title search_string}}
+        {{else}}
+        a.kw_video_list_link(href="#", data-start="0", data-id="{{media_item.uuid}}") {{media_item.title}}
+        {{/if}}
+    .kw_video_meta
+        time {{dateDisplay media_item.created}}
+        {{#if media_item.authors}}
+        span.kw_users
+            {{#each media_item.authors}}
+            a(href="#") &nbsp; {{this}},
+            {{/each}}
+        {{/if}}
+        {{#if media_item.categories}}
+        span.kw_cat
+            {{#each media_item.categories}}
+            a(href="#") &nbsp; {{this}},
+            {{/each}}
+        {{/if}}
+        // TODO : differentiate category and tags
+        //span.kw_tags
+            a(href="#") tags
+    .kw_sp_list_matches
+        {{#each media_item.current_transcript.matches}}
+        .kw_row.kw_video_list_link(data-target="scrol_zone_{{@index}}", data-id="{{../media_item.uuid}}", data-start="{{this.start}}")
+            span {{millisecsToString this.start}}
+            {{highlightMatches this.text ../search_string}}
+        {{/each}}

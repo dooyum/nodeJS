@@ -1,0 +1,10 @@
+a.img.kw_video_list_link(href="#", data-id="{{media_item.uuid}}", data-start="0", style="background-image:url({{media_item.thumbnail_path}})")
+    span {{media_item.duration}}
+.kw_art_header
+    h1
+        {{#if search_string}}
+        a.kw_detail_list_link(href="#", data-id="{{media_item.uuid}}") {{highlightMatches media_item.title search_string}}
+        {{else}}
+        a.kw_detail_list_link(href="#", data-id="{{media_item.uuid}}") {{media_item.title}}
+        {{/if}}
+    time {{dateDisplay media_item.created}}

@@ -1,0 +1,13 @@
+.popup_section
+    .heading {{title}}
+      .content
+        form#form-{{cid}}
+          input.border_box.rounded_corners(type='text', placeholder='Binder Title', value='{{binder_title}}')
+    .divider
+    .popup_section(id="{{cid}}")
+      .button.neutral.save_button.border_box.rounded_corners.btn_cancel
+        span.text Cancel
+      .button.positive.submit_button.border_box.rounded_corners.btn_save
+        span.text Save
+      .clear
+    .arrow.top
