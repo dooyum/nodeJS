@@ -15,7 +15,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import org.json.JSONObject;
+import org.json.*;
 
 public class HydraTCPClient {
     public static void main(String[] args) throws Exception {

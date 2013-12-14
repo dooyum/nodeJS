@@ -48,7 +48,7 @@ app.post('/convertFile', function(req, res) {
 	var exec = require('child_process').exec;
 	function puts(error, stdout, stderr) { sys.puts(stdout) }
 	var fileName = req.body.fileName;
-	exec("cd ..; cd conversionScript; bash convert.sh " + fileName, puts);
+	//exec("cd ..; cd conversionScript; bash convert.sh " + fileName, puts);
 	console.log(req.body);
 	res.send("ok");
 });
