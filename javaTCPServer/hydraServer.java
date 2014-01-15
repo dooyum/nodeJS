@@ -20,7 +20,7 @@ class hydraServer
          int index = 0;
          while(inFromClient.read(dataFromClient) > -1){
             System.out.println("DATA: " + dataFromClient[0]);
-            if((index % 50) == 0) {
+            if((index % 100) == 0) {
                outToClient.writeBytes("This message is a translation from hydra \r\n");
             }
             index ++;
