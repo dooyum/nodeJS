@@ -45,7 +45,7 @@ public class HydraTCPClient {
 
         boolean callBackRequested = false;
         String callbackAddress = "";
-        CloseableHttpClient httpClient = null;
+        //CloseableHttpClient httpClient = null;
         //if callback argument is set
         if(args.length > 2){
             callBackRequested = true;
@@ -53,7 +53,8 @@ public class HydraTCPClient {
             callbackAddress = args[2];
 
            //create HTTP Client for callback
-            httpClient = HttpClientBuilder.create().build();
+            //httpClient = HttpClientBuilder.create().build();
+
         }
 
         while(true){
@@ -61,19 +62,22 @@ public class HydraTCPClient {
             if((dataFromHydra = inFromHydra.readLine()) != null){
                 System.out.println("TRANSCRIPT FROM HYDRA: " + dataFromHydra);
 
-                if(args.length > 2){
+                if(callBackRequested){
                     //create json object of transcription
                     JSONObject json = new JSONObject();
                     json.put("transcription", dataFromHydra);
                     try {
+                        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
                         HttpPost request = new HttpPost(callbackAddress);
-                        StringEntity params = new StringEntity(json.toString());
                         request.addHeader("content-type", "application/x-www-form-urlencoded");
+
+                        StringEntity params = new StringEntity(json.toString());
                         request.setEntity(params);
                         //send callback
                         HttpResponse response = httpClient.execute(request);
                         int code = response.getStatusLine().getStatusCode();
-                        System.out.println("STATUS CODE: " + code);            
+                        System.out.println("STATUS CODE: " + code);
+                        httpClient.close();            
                         // handle response here...
                     } catch (Exception e) {
                         e.printStackTrace();
