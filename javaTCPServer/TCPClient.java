@@ -1,29 +1,44 @@
 import java.io.*;
 import java.net.*;
-import javax.sound.sampled.*;
 
-class TCPClient
-{
- public static void main(String argv[]) throws Exception
- {
-  Socket clientSocket = new Socket("localhost", 6789);
-  DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-  DataInputStream inFromServer = new DataInputStream(clientSocket.getInputStream());
-  File file = new File("./output.raw");  
-  //Uncomment the following line for file with known audio format
-  //AudioInputStream ais = AudioSystem.getAudioInputStream(file);  
-  FileInputStream ais = new FileInputStream(file);
-  byte[] data = new byte[ais.available()];
-  byte[] dataFromServer = new byte[ais.available()];  
-  ais.read(data);
-  outToServer.write(data);
-  inFromServer.read(dataFromServer);
-  /*for (int i = 0; i < dataFromServer.length ;i++ ) {
-      System.out.println("Shit happens");
+class TCPClient{
+  public static void main(String argv[]) throws Exception{
+    String modifiedSentence;
+    DataInputStream inFromUser = new DataInputStream(System.in);
+    
+    boolean incomingDataAvailable = true;     
+    int dataLeft = 0;
 
-      System.out.println(dataFromServer[i]);
+    Socket clientSocket = new Socket("localhost", 5000);
+
+    DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+    BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+    while(incomingDataAvailable){
+      byte[] dataRead = new byte[8];
+      try {
+          inFromUser.read(dataRead);
+          System.out.println(dataRead);
+
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+
+      outToServer.write(dataRead);
+      outToServer.flush();
+
+      //check if there is unread input
+      try {
+          dataLeft = inFromUser.available();
+      } catch (IOException e) {
+          dataLeft = 0;
+          e.printStackTrace();
+      }
+      if(dataLeft == 0){
+        incomingDataAvailable = false;
+        System.out.println("DATA IS DONE!!!");
+      }
+    }
+    clientSocket.close();
   }
-  System.out.println("Shit happens");*/
-  clientSocket.close();
- }
 }
