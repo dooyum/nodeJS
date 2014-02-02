@@ -4,10 +4,12 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.Exception;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 import org.apache.http.*;
@@ -42,16 +44,13 @@ public class HydraTCPClient {
         Thread consumerThread = new Thread(consumer);
         consumerThread.start();
 
-        OutgoingTCPServer server = new OutgoingTCPServer(transcriptQueue);
-        Thread serverThread = new Thread(server);
-        serverThread.start();
-
         //receive transcription from HYDRA and post to specified callback address
         BufferedReader inFromHydra = new BufferedReader(new InputStreamReader(hydraSocket.getInputStream()));
         String dataFromHydra;
 
         boolean callBackRequested = false;
         Integer callbackPort = 0;
+        DataOutputStream outToCallback = null;
         //CloseableHttpClient httpClient = null;
         //if callback argument is set
         if(args.length > 2){
@@ -62,7 +61,7 @@ public class HydraTCPClient {
            //setup callback Connection
             ServerSocket webServerSocket = new ServerSocket(callbackPort);
             Socket webSocket = webServerSocket.accept();
-            DataOutputStream outToCallback = new DataOutputStream(webSocket.getOutputStream());
+            outToCallback = new DataOutputStream(webSocket.getOutputStream());
         }
         
         //Create transcript file        
