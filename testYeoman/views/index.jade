@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= "File Uploader"
+  p Please select your file
+  div
+     //- form( method="post", enctype="multipart/form-data", action="api/file")
+     form( method="post", enctype="multipart/form-data", action="streamUpload")
+        div
+           div
+               span.label Upload :
+               input(type="file", name="upload_file", id="upload_file")
+               input(type="file", name="text_file", id="text_file")
+               input.btn.btn-info(type="submit", value="Upload")
