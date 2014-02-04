@@ -65,18 +65,18 @@ public class HydraTCPClient {
         }
         
         //Create transcript file        
-        PrintWriter transcript = new PrintWriter("transcript.txt", "UTF-8");
-        transcript.close();
+        //PrintWriter transcript = new PrintWriter("transcript.txt", "UTF-8");
+        //transcript.close();
 
         while(true){
             //read data from HYDRA
             if((dataFromHydra = inFromHydra.readLine()) != null){
-                System.out.println("TRANSCRIPT FROM HYDRA: " + dataFromHydra);
+                //System.out.println("TRANSCRIPT FROM HYDRA: " + dataFromHydra);
 
                 //alternatively write transcript to file
-                PrintWriter writer = new PrintWriter(new FileWriter("transcript.txt", true));
-                writer.println(dataFromHydra);
-                writer.close();
+                // PrintWriter writer = new PrintWriter(new FileWriter("transcript.txt", true));
+                // writer.println(dataFromHydra);
+                // writer.close();
 
                 if(callBackRequested){
                     //create json object of transcription of words and send if the data is appropriate

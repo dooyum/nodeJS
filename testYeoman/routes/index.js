@@ -39,9 +39,16 @@ exports.streamUpload = function(req,res){
     	//console.log(file);
 	});
 
-    var s = require('net').Socket();
-    //s.connect(8080, 'localhost');
-    s.connect(5000, '10.0.23.247');
+    var outgoingSocket = require('net').Socket();
+    outgoingSocket.connect(5000, 'localhost');
+
+    var incomingSocket = require('net').Socket();
+    incomingSocket.connect(6000, 'localhost');
+
+    incomingSocket.on('data', function(data){
+        console.log(data.toString());
+    });
+
     incomingForm.onPart = function(part) {
             // Handle each data chunk as data streams in
         //    if (!part.filename) {
@@ -53,10 +60,8 @@ exports.streamUpload = function(req,res){
             if(part.filename != ''){
                 console.log(part);
                 part.addListener('data', function(data) {
-                  // console.log(data);
-                   s.write(data);
-                   console.log(data);
-                   //console.log("s");
+                   outgoingSocket.write(data);
+                   //console.log(data);
                 });
             }
             else{
