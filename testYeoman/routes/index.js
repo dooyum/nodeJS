@@ -39,8 +39,8 @@ exports.streamUpload = function(req,res){
     	//console.log(file);
 	});
 
-    var outgoingSocket = require('net').Socket();
-    outgoingSocket.connect(5000, 'localhost');
+    var s = require('net').Socket();
+    s.connect(5000, 'localhost');
 
     var incomingSocket = require('net').Socket();
     incomingSocket.connect(6000, 'localhost');
@@ -60,7 +60,7 @@ exports.streamUpload = function(req,res){
             if(part.filename != ''){
                 console.log(part);
                 part.addListener('data', function(data) {
-                   outgoingSocket.write(data);
+                   s.write(data);
                    //console.log(data);
                 });
             }
