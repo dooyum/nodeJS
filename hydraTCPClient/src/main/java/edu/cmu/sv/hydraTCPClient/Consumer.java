@@ -46,7 +46,8 @@ public class Consumer implements Runnable{
             /*HydraInput hydraInput = new HydraInput(socket);
             Thread hydraInputThread = new Thread(hydraInput);
             hydraInputThread.start();*/
-
+            
+            // 10 because hydra formatted data has been included
             short[] combinedBytes = new short[10];
             while(true){
                 if(!queue.isEmpty()){
