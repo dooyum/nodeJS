@@ -20,8 +20,8 @@ class hydraServer
          int index = 0;
          while(inFromClient.read(dataFromClient) > -1){
             System.out.println("DATA: " + dataFromClient[0]);
-            if((index % 100) == 0) {
-               outToClient.writeBytes("HUNDRED,2407.25,2407.45 \r\n");
+            if((index % 1500) == 0) {
+               outToClient.writeBytes(index + "HUNDRED,2407.25,2407.45 \r\n");
             }
             index ++;
          }
