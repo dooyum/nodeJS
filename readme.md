@@ -42,7 +42,6 @@ VideoBitRate 512
 VideoSize 320x240 
 AVOptionVideo crf 23
 AVOptionVideo preset medium
-# for more info on crf/preset options, type: x264 --help
 AVOptionVideo flags +global_header
 AVOptionVideo me_range 16
 AVOptionVideo qdiff 4
