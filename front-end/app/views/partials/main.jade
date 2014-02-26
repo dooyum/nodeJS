@@ -1,0 +1,51 @@
+div(ng-include='\'partials/navbar\'')
+
+div.container(ng-controller="UploaderCtrl as upload")
+  div.row
+    div.col-md-3
+      form( method="post", enctype="multipart/form-data", action="files/upload")
+        span.label Upload :
+        input(type="file", name="upload_file", id="upload_file", ng-file-select)
+        br
+        input(type="text", ng-click="upload.sampleFunction()")
+        {{upload.should}}
+    div.col-md-9
+      table(class="table")
+        thead
+          tr
+            th Name
+            th Size 
+            th Progress
+            th Actions
+          tr(ng-repeat="item in uploader.queue")
+            td  {{ item.file.name }} - {{item.test}}
+            td  {{ item.file.size/1024/1024|number:2 }} MB
+            td 
+              p(ng-show="item.isUploading") File uploading...
+              p(ng-show="item.isSuccess") File has uploaded
+            td(nowrap)
+              button(ng-show="item.isSuccess" type="button" class="btn btn-primary btn-xs" )
+                span(class="glyphicon glyphicon-film")
+              | &nbsp;
+              button(type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess")
+                span(class="glyphicon glyphicon-upload")
+                Upload
+              | &nbsp;
+              button(type="button" class="btn btn-danger btn-xs" ng-click="item.remove()")
+                span(class="glyphicon glyphicon-trash")
+                Remove
+  div.row
+    div.jumbotron
+      div.container
+        div.row-fluid
+          div.span12
+            .jumbotron
+              h1
+                | Uploaded media
+              p
+                | Content
+              div(ng-repeat="item in upload.uploadedFiles")
+                p sss- {{item}} -ssss
+br 
+br
+
