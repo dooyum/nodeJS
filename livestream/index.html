@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <script type="text/javascript" src="/jwplayer/jwplayer.js"></script>
+    <script type="text/javascript">jwplayer.key="BIb8idU0NiaI799KsLFW1VamXp6H/A5UEW0kOA==";</script>
+    <script type="text/javascript" src="/socket.io/lib/socket.io.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <META http-equiv="Cache-Control" content="no-cache">
+    <META http-equiv="Pragma" content="no-cache">
+    <META http-equiv="Expires" content="0">
+    <script>
+    $(document).ready(function(){
+      $(".btn1").click(function(){
+        $("label").fadeOut(1000);
+      });
+      $(".btn2").click(function(){
+        $("label").fadeIn(1000);
+      });
+    });
+
+    var clicked = function() {
+      $("label").fadeOut(1000);
+    };
+    setInterval(clicked,7000);
+    </script>
+  </head>
+  <body>
+    <h1>Speech Hack Livestream</h1>
+    <div>
+    <p>Welcome to Speech Hack</p></div>
+    <div id="myElement">Loading the player...</div>
+    <script type="text/javascript">
+      jwplayer("myElement").setup({file: "http://localhost:8090/test1.wav"});
+    </script>
+    <script>
+      var socket = io.connect('http://localhost:3000/');
+      var wordIndex = 0; 
+      socket.on('message', function (data) { 
+        $( "#closedCaptions" ).append( "<label>" + JSON.parse(data).word + " </label>" ); 
+      });
+    </script>
+    <button class="btn1">Hide Previous Captions</button>
+    <button class="btn2">Show All Captions</button>
+    <div>
+      <div id="closedCaptions">
+        
+      </div>
+    </div>
+  </body>
+</html>

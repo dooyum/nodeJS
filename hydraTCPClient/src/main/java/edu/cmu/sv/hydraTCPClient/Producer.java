@@ -21,17 +21,25 @@ public class Producer implements Runnable{
             boolean incomingDataAvailable = true;     
             int dataLeft = 0;
 
-            while(incomingDataAvailable){
-                Integer dataRead;
-                try {
-                    dataRead = input.read(dataFromInput);
-                } catch (IOException e) {
-                    dataRead = 0;
-                    e.printStackTrace();
-                }
+            while(true){
+                if(incomingDataAvailable){
+                    Integer dataRead;
+                    try {
+                        dataRead = input.read(dataFromInput);
+                    } catch (IOException e) {
+                        dataRead = 0;
+                        e.printStackTrace();
+                    }
 
-                //add buffer to the queue
-                queue.put(kaldiFormat(dataFromInput));
+                    //add buffer to the queue
+                    queue.put(kaldiFormat(dataFromInput));
+
+                    //TOGO
+                    short[] combinedBytes = new short[8];
+                    combinedBytes = bytesToShort(dataFromInput);
+                    System.out.println("DATA WRITTEN TO QUEUE: " + Integer.toHexString(combinedBytes[0] & 0xffff) + " " + Integer.toHexString(combinedBytes[1] & 0xffff) + " " + Integer.toHexString(combinedBytes[2] & 0xffff) + " " + Integer.toHexString(combinedBytes[3] & 0xffff) + " " + Integer.toHexString(combinedBytes[4] & 0xffff) + " " + Integer.toHexString(combinedBytes[5] & 0xffff) + " " + Integer.toHexString(combinedBytes[6] & 0xffff) + " " + Integer.toHexString(combinedBytes[7] & 0xffff));
+                    System.out.println("INCOMING DATA LEFT TO READ: " + dataLeft + " BYTES");
+                }
 
                 //check if there is unread input
                 try {
@@ -42,13 +50,9 @@ public class Producer implements Runnable{
                 }
                 if(dataLeft == 0){
                   incomingDataAvailable = false;
+                } else {
+                    incomingDataAvailable = true;
                 }
-
-                //TOGO
-                short[] combinedBytes = new short[8];
-                combinedBytes = bytesToShort(dataFromInput);
-                System.out.println("DATA WRITTEN TO QUEUE: " + Integer.toHexString(combinedBytes[0] & 0xffff) + " " + Integer.toHexString(combinedBytes[1] & 0xffff) + " " + Integer.toHexString(combinedBytes[2] & 0xffff) + " " + Integer.toHexString(combinedBytes[3] & 0xffff) + " " + Integer.toHexString(combinedBytes[4] & 0xffff) + " " + Integer.toHexString(combinedBytes[5] & 0xffff) + " " + Integer.toHexString(combinedBytes[6] & 0xffff) + " " + Integer.toHexString(combinedBytes[7] & 0xffff));
-                System.out.println("INCOMING DATA LEFT TO READ: " + dataLeft + " BYTES");
              }
 
         } catch (InterruptedException e) {

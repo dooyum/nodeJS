@@ -42,7 +42,7 @@ app.get('/getTranscript/:fileName', routes.getTranscript);
 app.get('/serveVideo/:fileName', routes.serveVideo);
 app.get('/serveSubtitles/:fileName', routes.serveSubtitles);
 app.post('/today', function(req,res){
-	console.log(req);
+	console.log(req.body);
 
 	res.writeHead(200, { 'Content-Type': 'text/plain' }); //content type should be dynamic
 	res.end("test", 'utf-8');

@@ -4,8 +4,12 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.lang.Exception;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 import org.apache.http.*;
@@ -23,6 +27,7 @@ public class HydraTCPClient {
         //Receive data from ffmpeg server
         DataInputStream input = new DataInputStream(System.in);
         BlockingQueue<byte[]> queue = new LinkedBlockingQueue<byte[]>();
+        BlockingQueue<String> transcriptQueue = new LinkedBlockingQueue<String>();
 
         //setup HYDRA Connection
         String hydraAddress = args[0];
@@ -44,45 +49,53 @@ public class HydraTCPClient {
         String dataFromHydra;
 
         boolean callBackRequested = false;
-        String callbackAddress = "";
-        CloseableHttpClient httpClient = null;
+        Integer callbackPort = 0;
+        DataOutputStream outToCallback = null;
+        //CloseableHttpClient httpClient = null;
         //if callback argument is set
         if(args.length > 2){
             callBackRequested = true;
             // callback address format is "http://10.0.22.147:3001/today"
-            callbackAddress = args[2];
+            callbackPort = Integer.parseInt(args[2]);
 
-           //create HTTP Client for callback
-            httpClient = HttpClientBuilder.create().build();
+           //setup callback Connection
+            ServerSocket webServerSocket = new ServerSocket(callbackPort);
+            Socket webSocket = webServerSocket.accept();
+            outToCallback = new DataOutputStream(webSocket.getOutputStream());
         }
+        
+        //Create transcript file        
+        //PrintWriter transcript = new PrintWriter("transcript.txt", "UTF-8");
+        //transcript.close();
 
         while(true){
             //read data from HYDRA
             if((dataFromHydra = inFromHydra.readLine()) != null){
-                System.out.println("TRANSCRIPT FROM HYDRA: " + dataFromHydra);
+                //System.out.println("TRANSCRIPT FROM HYDRA: " + dataFromHydra);
 
-                if(args.length > 2){
-                    //create json object of transcription
-                    JSONObject json = new JSONObject();
-                    json.put("transcription", dataFromHydra);
-                    try {
-                        HttpPost request = new HttpPost(callbackAddress);
-                        StringEntity params = new StringEntity(json.toString());
-                        request.addHeader("content-type", "application/x-www-form-urlencoded");
-                        request.setEntity(params);
-                        //send callback
-                        HttpResponse response = httpClient.execute(request);
-                        int code = response.getStatusLine().getStatusCode();
-                        System.out.println("STATUS CODE: " + code);            
-                        // handle response here...
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                //alternatively write transcript to file
+                // PrintWriter writer = new PrintWriter(new FileWriter("transcript.txt", true));
+                // writer.println(dataFromHydra);
+                // writer.close();
+
+                if(callBackRequested){
+                    //create json object of transcription of words and send if the data is appropriate
+                    if(!dataFromHydra.startsWith("RESULT:")){
+                        String[] transcriptParameters = dataFromHydra.split(",");
+
+                        JSONObject json = new JSONObject();
+                        json.put("word", transcriptParameters[0]);
+                        json.put("start", transcriptParameters[1]);
+                        json.put("end", transcriptParameters[2]);
+
+                        try {
+                            outToCallback.writeBytes(json.toString() + '\n');
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
         }
-
-        //TODO(dooyum) close client only after we have received all messages from HYDRA
-        //httpClient.close();
     }
 }
