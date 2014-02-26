@@ -52,11 +52,11 @@ incomingSocket.on('error', function(err) {
 io.sockets.on('connection', function (socket) {
   socket.send('{"word":"Closed Captions Enabled"}');
 
-  incomingSocket.on('data', function(data){
-    //carrier.carry(incomingSocket, function(line) {
-      //console.log("line: "+line);
-      //socket.send(line);
-    //}, "utf8");
-  socket.send(data.toString());
-  });
+  //incomingSocket.on('data', function(data){
+    
+  //socket.send(data.toString());
+  //});
+  carrier.carry(incomingSocket, function(line) {
+    socket.send(line);
+  })
 });
