@@ -1,5 +1,6 @@
 package edu.cmu.sv.hydraTCPClient;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.io.BufferedReader;
@@ -30,9 +31,15 @@ public class HydraTCPClient {
         BlockingQueue<String> transcriptQueue = new LinkedBlockingQueue<String>();
 
         //setup HYDRA Connection
-        String hydraAddress = args[0];
-        Integer hydraPort = Integer.parseInt(args[1]);
-        Socket hydraSocket = new Socket(hydraAddress, hydraPort);
+        ArrayList<Socket> hydraSockets = new ArrayList<Socket>();
+        ArrayList<Integer> callbackPorts = new ArrayList<Integer>();
+        for (int index = 0 ; index < args.length ; index +=3) {
+            String hydraAddress = args[index];
+            Integer hydraPort = Integer.parseInt(args[index + 1]);
+            hydraSockets.add(new Socket(hydraAddress, hydraPort));
+            callbackPorts.add(Integer.parseInt(args[index+2]));
+        }
+        
 
         //create thread to get raw data
         Producer producer = new Producer(input, queue);
@@ -40,62 +47,15 @@ public class HydraTCPClient {
         producerThread.start();
 
         //create thread to push raw data to HYDRA
-        Consumer consumer = new Consumer(hydraSocket, queue);
+        Consumer consumer = new Consumer(hydraSockets, queue);
         Thread consumerThread = new Thread(consumer);
         consumerThread.start();
 
-        //receive transcription from HYDRA and post to specified callback address
-        BufferedReader inFromHydra = new BufferedReader(new InputStreamReader(hydraSocket.getInputStream()));
-        String dataFromHydra;
-
-        boolean callBackRequested = false;
-        Integer callbackPort = 0;
-        DataOutputStream outToCallback = null;
-        //CloseableHttpClient httpClient = null;
-        //if callback argument is set
-        if(args.length > 2){
-            callBackRequested = true;
-            // callback address format is "http://10.0.22.147:3001/today"
-            callbackPort = Integer.parseInt(args[2]);
-
-           //setup callback Connection
-            ServerSocket webServerSocket = new ServerSocket(callbackPort);
-            Socket webSocket = webServerSocket.accept();
-            outToCallback = new DataOutputStream(webSocket.getOutputStream());
-        }
-        
-        //Create transcript file        
-        //PrintWriter transcript = new PrintWriter("transcript.txt", "UTF-8");
-        //transcript.close();
-
-        while(true){
-            //read data from HYDRA
-            if((dataFromHydra = inFromHydra.readLine()) != null){
-                //System.out.println("TRANSCRIPT FROM HYDRA: " + dataFromHydra);
-
-                //alternatively write transcript to file
-                // PrintWriter writer = new PrintWriter(new FileWriter("transcript.txt", true));
-                // writer.println(dataFromHydra);
-                // writer.close();
-
-                if(callBackRequested){
-                    //create json object of transcription of words and send if the data is appropriate
-                    if(!dataFromHydra.startsWith("RESULT:")){
-                        String[] transcriptParameters = dataFromHydra.split(",");
-
-                        JSONObject json = new JSONObject();
-                        json.put("word", transcriptParameters[0]);
-                        json.put("start", transcriptParameters[1]);
-                        json.put("end", transcriptParameters[2]);
-
-                        try {
-                            outToCallback.writeBytes(json.toString() + '\n');
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
+        for (int index = 0; index < callbackPorts.size(); index++) {
+            //create thread to push transcriptions to callback ports
+            Response response = new Response(hydraSockets.get(index), callbackPorts.get(index));
+            Thread responseThread = new Thread(response);
+            responseThread.start();
         }
     }
 }

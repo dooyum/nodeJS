@@ -1,5 +1,6 @@
 package edu.cmu.sv.hydraTCPClient;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -12,41 +13,29 @@ import java.net.Socket;
 public class Consumer implements Runnable{
 
     protected BlockingQueue<byte[]> queue = null;
-    protected Socket socket = null;
-    DataOutputStream dataOutputStream = null;
-    //BufferedReader dataInputStream = null;
+    protected ArrayList<Socket> hydraSockets = null;
+    ArrayList<DataOutputStream> dataOutputStreams = new ArrayList<DataOutputStream>();
+
     private volatile boolean running;
 
-    public Consumer(Socket socket, BlockingQueue<byte[]> queue) {
+    public Consumer(ArrayList<Socket> hydraSockets, BlockingQueue<byte[]> queue) {
         this.queue = queue;
-        this.socket = socket;
+        this.hydraSockets = hydraSockets;
         running = true;
 
-        OutputStream outputStream = null;
-        try {
-            outputStream = this.socket.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
+        for(Socket hydraSocket : hydraSockets){
+            OutputStream outputStream = null;
+            try {
+                outputStream = hydraSocket.getOutputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            dataOutputStreams.add(new DataOutputStream(outputStream));
         }
-        dataOutputStream = new DataOutputStream(outputStream);
-
-
-        /*InputStream inputStream = null;
-        try {
-            inputStream = this.socket.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        dataInputStream = new BufferedReader(new InputStreamReader(inputStream));*/
-
     }
 
     public void run() {
         try {
-            /*HydraInput hydraInput = new HydraInput(socket);
-            Thread hydraInputThread = new Thread(hydraInput);
-            hydraInputThread.start();*/
-            
             // 10 because hydra formatted data has been included
             short[] combinedBytes = new short[10];
             while(true){
@@ -56,11 +45,13 @@ public class Consumer implements Runnable{
                     //TOGO
                     combinedBytes = bytesToShort(buffer);
                     System.out.println("DATA READ FROM QUEUE: " + Integer.toHexString(combinedBytes[0] & 0xffff) + " " + Integer.toHexString(combinedBytes[1] & 0xffff) + " " + Integer.toHexString(combinedBytes[2] & 0xffff) + " " + Integer.toHexString(combinedBytes[3] & 0xffff) + " " + Integer.toHexString(combinedBytes[4] & 0xffff) + " " + Integer.toHexString(combinedBytes[5] & 0xffff) + " " + Integer.toHexString(combinedBytes[6] & 0xffff) + " " + Integer.toHexString(combinedBytes[7] & 0xffff) + " " + Integer.toHexString(combinedBytes[8] & 0xffff) + " " + Integer.toHexString(combinedBytes[9] & 0xffff));
-                    try {
-                        dataOutputStream.write(buffer);
-                        dataOutputStream.flush();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    for(DataOutputStream dataOutputStream : dataOutputStreams){
+                        try {
+                            dataOutputStream.write(buffer);
+                            dataOutputStream.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
