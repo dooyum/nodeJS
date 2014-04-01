@@ -14,6 +14,8 @@ module.exports = function(app) {
 
   // 
   app.post('/files/upload', files.upload);
+  app.get('/files/stream/:fileId', files.stream);
+  app.get('/files/transcript/:fileId', files.transcript); //this should be extracted to a transcripts controller
 
   // Server API Routes
   app.get('/api/awesomeThings', api.awesomeThings);

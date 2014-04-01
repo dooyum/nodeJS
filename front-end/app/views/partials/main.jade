@@ -7,8 +7,8 @@ div.container(ng-controller="UploaderCtrl as upload")
         span.label Upload :
         input(type="file", name="upload_file", id="upload_file", ng-file-select)
         br
-        input(type="text", ng-click="upload.sampleFunction()")
-        {{upload.should}}
+        //- input(type="text", ng-click="upload.testFunction()")
+        //- {{upload.should}}
     div.col-md-9
       table(class="table")
         thead
@@ -18,14 +18,14 @@ div.container(ng-controller="UploaderCtrl as upload")
             th Progress
             th Actions
           tr(ng-repeat="item in uploader.queue")
-            td  {{ item.file.name }} - {{item.test}}
+            td  {{ item.file.name }} - {{item._id}}
             td  {{ item.file.size/1024/1024|number:2 }} MB
             td 
               p(ng-show="item.isUploading") File uploading...
               p(ng-show="item.isSuccess") File has uploaded
             td(nowrap)
-              button(ng-show="item.isSuccess" type="button" class="btn btn-primary btn-xs" )
-                span(class="glyphicon glyphicon-film")
+              button(ng-show="item.isSuccess" type="button" class="btn btn-primary btn-xs" ng-click="sampleFunction(item._id)")
+                span(class="glyphicon glyphicon-film" )
               | &nbsp;
               button(type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess")
                 span(class="glyphicon glyphicon-upload")
@@ -39,13 +39,18 @@ div.container(ng-controller="UploaderCtrl as upload")
       div.container
         div.row-fluid
           div.span12
-            .jumbotron
-              h1
-                | Uploaded media
-              p
-                | Content
-              div(ng-repeat="item in upload.uploadedFiles")
-                p sss- {{item}} -ssss
-br 
+            div.row 
+              div(class="col-md-offset-4 col-md-3" controls) 
+                p Uploaded Media {{upload.activeVideo}}
+            div.row
+              div.col-md-6
+                video(width="400" height="264")
+                  source(src="http://bennugd-vlc.googlecode.com/files/big_buck_bunny_480p.ogv")
+                audio(controls)
+                  source(src="http://localhost:3000/files/stream/531623ffdb0e4d7222000006" type="audio/mpeg")
+              div(class="col-md-6 panel-body")
+                span(ng-repeat="record in activeTranscript")
+                  input(type="text" ng-model="record.word") 
+                span(ng-repeat="record in activeTranscript")
+                  p {{record.word}}
 br
-

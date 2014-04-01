@@ -7,6 +7,8 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+
+//TODO: Grunt server is currently not recognizing changes made to server side files, as a result it doesn't autoatically update
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically

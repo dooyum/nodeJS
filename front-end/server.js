@@ -18,6 +18,17 @@ var config = require('./lib/config/config');
 // Connect to database
 var db = mongoose.connect(config.mongo.uri, config.mongo.options);
 
+//This shouldn't be a global variable
+global.responseSocket = require('net').Socket();
+responseSocket.on('error', function(error){
+    console.log("Error when connecting to response socket");
+    console.log(error);
+});
+responseSocket.on("data", function(data){
+	console.log(data.toString());
+});
+
+
 db.connection.on('open', function callback () {
   console.log("Connected to mongo");
 });
