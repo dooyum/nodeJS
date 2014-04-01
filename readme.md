@@ -25,7 +25,7 @@ PLAYLIST (use libfdk_aac if the audio encoder gives problems)
 for f in *.mp4; do echo "Playing $f"; ffmpeg -re -f mp4 -i $f http://localhost:8090/feed1.ffm; done
 
 working ffserver config for flv
-<Stream live.flv>
+<!--<Stream live.flv>
 Format flv
 Feed feed1.ffm
 
@@ -57,4 +57,4 @@ AudioChannels 1
 AudioSampleRate 16000
 AudioCodec pcm_s16le
 NoVideo
-</Stream>
+</Stream>-->
