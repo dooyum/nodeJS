@@ -1,1 +1,12 @@
-./hydraTCPClient/transcript.txt
+hydraTCPClient/transcript.txt
+line-chart
+hydraTCPClient/media/
+front-end
+
+*.wav
+
+hydraTCPClient/media/CES.mp4
+
+hydraTCPClient/media/input.mp4
+
+*.mp4

@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <script type="text/javascript" src="/socket.io/lib/socket.io.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <META http-equiv="Cache-Control" content="no-cache">
+    <META http-equiv="Pragma" content="no-cache">
+    <META http-equiv="Expires" content="0">
+    <script>
+    $(document).ready(function(){
+      $('#SubmitBtn').click(function (event) {
+        $.ajax({
+            type: "POST", 
+            url: 'http://localhost:3000/url',
+            data: { url : $("#url").val() }, 
+            success: function(data) { 
+                $("#test").append(data.data); 
+            }, 
+            error: function(jqXHR, textStatus, errorThrown) { 
+                alert('Error connecting to the Node.js server... ' + textStatus + " " + errorThrown); 
+            } 
+        });
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <h1>Speech Hack Livestream</h1>
+    <div>
+    <p>Speech Hack Administrator</p></div>
+    <div id="test"></div> 
+
+    <p>Enter livestream URL</p>
+    <input id="url" type="text" name="url">
+    <button id="SubmitBtn" type="submit">Submit</button>
+  </body>
+</html>
