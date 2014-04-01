@@ -3,8 +3,27 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    <script type="text/javascript" src="/jwplayer/jwplayer.js"></script>
-    <script type="text/javascript">jwplayer.key="BIb8idU0NiaI799KsLFW1VamXp6H/A5UEW0kOA==";</script>
+    script(src="/jwplayer/jwplayer.js")
+    script.
+      jwplayer.key="BIb8idU0NiaI799KsLFW1VamXp6H/A5UEW0kOA==";
     script(src="/socket.io/lib/socket.io.js")
+    script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+    META(http-equiv="Cache-Control" content="no-cache")
+    META(http-equiv="Pragma" content="no-cache")
+    META(http-equiv="Expires" content="0")
+    script.
+      $(document).ready(function(){
+        $(".btn1").click(function(){
+          $("label").fadeOut(1000);
+        });
+        $(".btn2").click(function(){
+          $("label").fadeIn(1000);
+        });
+      });
+
+      var clicked = function() {
+        $("label").fadeOut(1000);
+      };
+      setInterval(clicked,7000);
   body
     block content
