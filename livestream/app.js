@@ -39,8 +39,8 @@ server.listen(app.get('port'), function(){
 
 function puts(error, stdout, stderr) { sys.puts(stdout) }
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+app.get('/', function(req, res){
+  res.render('index', { title: 'Speech Hack Livestream', url:livestreamUrl });
 });
 
 app.get('/admin', function (req, res) {
