@@ -1,0 +1,36 @@
+extends layout
+
+block body
+  div(ng-controller='AppCtrl')
+    div
+        input(type="button", ng-click="startBroadcast()", value="start")
+      table
+        tr
+          td
+            nvd3-line-chart(data="exampleData2", width="600", height="500", showXAxis="true", showYAxis="true", isArea="true", forcey="[0,100]", showLegend="true")
+          td
+            nvd3-line-chart(data="exampleData", width="600", height="500", showXAxis="true", showYAxis="true", isArea="true", forcey="[0,100]", 
+            showLegend="true")
+        tr
+          td
+            div.transcript(scroll-glue)
+              {{transcript1}}
+          td
+            div.transcript(scroll-glue)
+              {{transcript2}}      
+
+    div(ng-view)
+
+  script(src='/socket.io/socket.io.js')
+  script(src='bower_components/angular/angular.js')
+  script(src='bower_components/angular-route/angular-route.js')
+  script(src='bower_components/angular-socket-io/socket.js')
+  script(src='js/app.js')
+  script(src='js/services.js')
+  script(src='js/controllers.js')
+  script(src='js/filters.js')
+  script(src='js/directives.js')
+  script(src='bower_components/d3/d3.js')
+  script(src='bower_components/nvd3/nv.d3.js')
+  script(src='bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js')
+  <script src="https://rawgithub.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js"></script>
