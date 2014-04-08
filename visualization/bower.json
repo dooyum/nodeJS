@@ -1,0 +1,21 @@
+{
+  "name": "angular-socket-io",
+  "version": "0.4.1",
+  "main": "socket.js",
+  "dependencies": {
+    "angular": "~1.2.6",
+    "json3": "~3.2.6",
+    "es5-shim": "~2.1.0",
+    "angular-resource": "1.2.6",
+    "angular-sanitize": "1.2.6",
+    "angular-route": "1.2.6",
+    "d3": "*",
+    "angular-mocks": "*",
+    "moment": "*",
+    "nvd3": "~1.1.15-beta",
+    "angularjs-nvd3-directives": "~0.0.5-beta"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.6"
+  }
+}
