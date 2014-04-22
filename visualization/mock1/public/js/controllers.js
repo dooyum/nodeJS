@@ -4,7 +4,7 @@
 
 angular.module('myApp.controllers', ['nvd3ChartDirectives'])
   .controller('AppCtrl', function ($scope, $http, socket ) {
-    $scope.elapsedTime = 0;
+    $scope.elapsedTime = 1;
     $scope.gpuCount = 0;
     $scope.cpuCount = 0;
     $scope.speedFactor = 0.5;
