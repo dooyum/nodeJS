@@ -20,7 +20,7 @@ class GPUHydraServer
          int index = 0;
          while(inFromClient.read(dataFromClient) > -1){
             System.out.println("DATA: " + dataFromClient[0]);
-            if((index % 1500) == 0) {
+            if((index % 1800) == 0) {
                outToClient.writeBytes(index + "GPU SERVER,2407.25,2407.45 \r\n");
             }
             index ++;

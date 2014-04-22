@@ -4,12 +4,22 @@
 
 angular.module('myApp.controllers', ['nvd3ChartDirectives'])
   .controller('AppCtrl', function ($scope, $http, socket ) {
-
+    $scope.elapsedTime = 0;
+    $scope.gpuCount = 0;
+    $scope.cpuCount = 0;
+    $scope.speedFactor = 0.5;
     $scope.startBroadcast = function(){
         socket.emit('init', {
-          message: $scope.message
+          message: $scope.message 
         });
         console.log("start");
+
+        setInterval(function(){
+          //this is the variable that needs to be updated, the view will update automatically
+          $scope.elapsedTime+= $scope.speedFactor; 
+          $scope.$apply();
+        },$scope.speedFactor * 1000);
+
     }
 
     socket.on('cpu:data', function (data) {
@@ -19,6 +29,17 @@ angular.module('myApp.controllers', ['nvd3ChartDirectives'])
     socket.on('cpu:count', function (data) {
      //   console.log("cpu count: " + data.count);
         $scope.modifyCount('cpu', data.count);
+        $scope.cpuCount += data.count;
+    });
+
+    socket.on('gpu:data', function (data) {
+        $scope.transcript2 = $scope.transcript2 + " " + data.word;
+    });
+
+    socket.on('gpu:count', function (data) {
+     //   console.log("cpu count: " + data.count);
+        $scope.modifyCount('gpu', data.count);
+        $scope.gpuCount += data.count;
     });
 
     $scope.modifyCount = function(device, count){
@@ -35,13 +56,18 @@ angular.module('myApp.controllers', ['nvd3ChartDirectives'])
             valueStored[i][1] = valueStored[i + 1][1];
         }
 
-        valueStored[valueStored.length - 1][0] = valueStored[valueStored.length - 1][0] + 5;
-        valueStored[valueStored.length - 1][1] = valueStored[valueStored.length - 1][1] + count;
+        valueStored[valueStored.length - 1][0] = $scope.elapsedTime;
+        if(device == 'cpu') {
+            valueStored[valueStored.length - 1][1] = ($scope.cpuCount/$scope.elapsedTime) * 60;
+        }
+        else {
+            valueStored[valueStored.length - 1][1] = ($scope.gpuCount/$scope.elapsedTime) * 60;
+        }
 
         if(device == 'cpu')
             $scope.exampleData2 = [{ "key": "CPU", "values": valueStored}]; 
         else
-            $scope.exampleData2 = [{ "key": "CPU", "values": valueStored}]; 
+            $scope.exampleData = [{ "key": "GPU", "values": valueStored}]; 
 
     }
 
