@@ -24,7 +24,7 @@ div.container(ng-controller="UploaderCtrl as upload")
               p(ng-show="item.isUploading") File uploading...
               p(ng-show="item.isSuccess") File has uploaded
             td(nowrap)
-              button(ng-show="item.isSuccess" type="button" class="btn btn-primary btn-xs" ng-click="sampleFunction(item._id)")
+              button(ng-show="item.isSuccess" type="button" class="btn btn-primary btn-xs" ng-click="sampleFunction(0)")
                 span(class="glyphicon glyphicon-film" )
               | &nbsp;
               button(type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess")
@@ -41,7 +41,7 @@ div.container(ng-controller="UploaderCtrl as upload")
           div.span12
             div.row 
               div(class="col-md-offset-4 col-md-3" controls) 
-                p Uploaded Media {{upload.activeVideo}}
+                p Uploaded Media {{upload.activeVideo}} 
             div.row
               div.col-md-6
                 video(width="400" height="264")
@@ -49,8 +49,11 @@ div.container(ng-controller="UploaderCtrl as upload")
                 audio(controls)
                   source(src="http://localhost:3000/files/stream/531623ffdb0e4d7222000006" type="audio/mpeg")
               div(class="col-md-6 panel-body")
+                span 
+                  div.transcript(scroll-glue)
+                    {{activeTranscript}}
                 span(ng-repeat="record in activeTranscript")
                   input(type="text" ng-model="record.word") 
                 span(ng-repeat="record in activeTranscript")
-                  p {{record.word}}
+                  p {{record.word}} 
 br

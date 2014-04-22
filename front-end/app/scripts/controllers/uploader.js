@@ -31,19 +31,15 @@ angular.module('frontEndApp')
     
     uploader.bind('completeall', function (event, items) {
         $scope.uploadedFiles.push("test");
+        console.log(items);
     });
 
     $scope.callTranscript = function(variable){
       var deferred = $q.defer();
- 
-      console.log("calling transcript");
-      
-      $http({method: 'GET', url: '/files/transcript/test'}).
+      $http({method: 'GET', url: '/files/transcript/' + variable}).
         success(function(data, status, headers, config) {
-          //console.log(data);
           var transcript = data.pop();
           deferred.resolve(transcript);
-          //return "gonad";
         }).
         error(function(data, status, headers, config) {
           console.log("there has been an error on retrieval of transcript");
@@ -53,39 +49,33 @@ angular.module('frontEndApp')
     };
 
     $scope.sampleFunction = function(variable){
-      console.log("running sample function");
-      $scope.activeVideo = variable;
-      $scope.callTranscript("testing").then(function(data){ 
+      var item = uploader.queue[variable];
+      $scope.callTranscript(item._id).then(function(data){
         $scope.activeTranscript = $scope.processTranscript(data);
-      });
+      });      
     }
+
+    //this has to be extracted to a transcripts service
+    $scope.processTranscript = function(transcript){
+      var string = "";
+      var words = transcript.words;
+      for(var i = 0; i < words.length; i++){
+        var element = words[i];
+        string = string + " " + element.word;
+      }
+
+      return string;
+    };
 
   	$scope.addWord = function(word){
       $scope.activeTranscript.push(word);
     }
 
-    this.testFunction = function($scope){
+    $scope.testFunction = function(){
+      console.log($scope.uploadedFiles);
       console.log($scope.activeTranscript);
-      console.log();
+      console.log() ;
     }
 
-  	//this can be removed
-    $http.get('/api/awesomeThings').success(function(awesomeThings) {
-   		console.log("ran awesome things");
-       $scope.awesomeThings = awesomeThings;
-    });
-
-    //this has to be extracted to a transcripts service
-    $scope.processTranscript = function(transcript){
-      console.log("process transcript");
-      console.log(transcript);
-      var array = new Array();
-      for(var x in transcript.words){
-        //array.push(transcript.words[x].word);
-        array.push({word: transcript.words[x].word});
-      }
-      console.log(array);
-      return array;
-    };
 
   });

@@ -1,0 +1,22 @@
+div(ng-include='\'partials/navbar\'')
+
+div(ng-controller="TranscriptsCtrl")
+	table(class="table table-striped")
+		tr
+			th File Name
+			th File ID
+			th Actions
+		tr(ng-repeat="transcript in transcripts")
+			td {{transcript.name}}
+			td {{transcript._id}}
+			td 
+				div(class="btn-group")
+					button(type="button" class=" btn btn-primary")
+						span(class="glyphicon glyphicon-file")
+						&nbsp; Download File
+					button(type="button" class="btn btn-primary")
+						span(class="glyphicon glyphicon-edit")
+						&nbsp; Download Transcript
+					button(type="button" class="btn btn-primary" ng-click="deleteTrancscript('{{transcript._id}}'')")
+						span(class="glyphicon glyphicon-edit")
+						&nbsp; Delete Transcript

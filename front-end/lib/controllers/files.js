@@ -6,14 +6,34 @@ var path = require('path'),
   multiparty = require('multiparty'),
   mongoose = require('mongoose'), //Modules are cached after the first time they are loaded. 
   Transcript = mongoose.model('Transcript'),
-  Grid = require('gridfs-stream');
+  Grid = require('gridfs-stream'), 
+  carrier = require('carrier');
 
 /**
  * Send our single page app
  */
 exports.index = function(req, res) {
+  console.log("index");
   res.render('index');
 };
+
+exports.list = function(){
+  console.log("list");
+  res.render('test');
+};
+
+exports.transcript = function(req, res){
+  //53560a3e263ae6510e000006
+  //var fileId = req.params.fileId;
+  var fileId = "53560a3e263ae6510e000006";
+  console.log("file id of transcript: " + fileId);
+  //var fileId = "531a391ceb24dd291e000006";
+  Transcript.find({_id: fileId}, function(err, transcript){
+    if(err) console.log(err);
+
+    res.json(transcript);
+  });
+}
 
 /**
  * Process the upload form
@@ -26,13 +46,31 @@ exports.upload = function(req,res){
   var filename;
   var gfs = Grid(mongoose.connection.db, mongoose.mongo);
   var externalSocket = require('net').Socket();
+  var words = new Array
+  var transcript;
 
-  externalSocket.connect(8080, 'localhost'); //error handler for this socket, so it doesn't break the flow
+  externalSocket.connect(11530, 'localhost');
 
   externalSocket.on('error', function(error){
     console.log("Error with socket that sends file");
     console.log(error);
   })
+
+  var test = false;
+
+  carrier.carry(externalSocket, function(line){
+      try {
+        line = JSON.parse(line);
+        console.log(line);
+        words.push(line);
+        //if(transcript){
+         // transcript.words = words;
+         // console.log(transcript);
+        //}
+      } catch (e) {
+        console.error("Parsing error:", e); 
+      }
+    });
 
   //Required for multipart to process form
   form.parse(req, function(err, fields, files) { 
@@ -50,7 +88,7 @@ exports.upload = function(req,res){
       responseSocket.on('connect', function(){
         console.log("connection to response socket has been made");
       });
-      responseSocket.write("cdcdsacds");
+      responseSocket.write("connection to response socket");
 
     }
   });
@@ -66,29 +104,23 @@ exports.upload = function(req,res){
       filename: filename
     });
     fs.createReadStream('./temp/' + filename).pipe(writeStream);
-    console.log("file written to mongodb and through res");
+
+    console.log("File has been written to MongoDB.");
     writeStream.on('close', function (file) {
-      //Write to MongoDB
-      Transcript.create({
+      var promise = Transcript.create({
           _id   : file._id, 
-          name  : 'Test transcript created /index',
-          words : {
-            s1: {"start":"06.32", "word":"Word1","end":"06.34"}, 
-            s2: {"start":"06.35", "word":"Word2","end":"06.54"},
-            s3: {"start":"06.55", "word":"Word3","end":"06.88"},
-            s4: {"start":"06.89", "word":"Word4","end":"07.28"},
-            s5: {"start":"07.29", "word":"Word5","end":"07.76"},
-            s6: {"start":"07.77", "word":"Word6","end":"08.01"},
-            s7: {"start":"08.02", "word":"Word7","end":"08.55"}
-          }
+          name  : filename,
+          words : words
         }, function() {
           res.json({ success: true, _id : file._id });
         }
       );
-      //res.json({ success: true, _id : file._id });
-    });
 
-    //responseSocket.close();
+      promise.then(function(savedTranscript){
+        transcript = savedTranscript;
+      });
+
+    });
   });
 
 
@@ -164,12 +196,3 @@ exports.stream = function(req, res){
   
 }
 
-exports.transcript = function(req, res){
-  //var fileId = req.params.fileId;
-  var fileId = "531a391ceb24dd291e000006";
-  Transcript.find({_id: fileId}, function(err, transcript){
-    if(err) console.log(err);
-
-    res.json(transcript);
-  });
-}

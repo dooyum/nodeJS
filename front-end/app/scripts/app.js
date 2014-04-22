@@ -13,9 +13,17 @@ angular.module('frontEndApp', [
         templateUrl: 'partials/main',
         controller: 'UploaderCtrl'
       })
+      .when('/index', {
+        templateUrl: 'partials/main',
+        controller: 'UploaderCtrl'
+      })
       .when('/player', {
         templateUrl: 'partials/player',
         controller: 'PlayerCtrl'
+      })
+      .when('/list', {
+        templateUrl: 'partials/list',
+        controller: 'TranscriptsCtrl'
       })
       .otherwise({
         redirectTo: '/'

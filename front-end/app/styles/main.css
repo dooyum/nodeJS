@@ -76,3 +76,10 @@ body {
     border-bottom: 0;
   }
 }
+
+div.transcript{
+  max-width: 600px;
+  height:175px;
+  overflow:hidden;
+  display:block;
+}
